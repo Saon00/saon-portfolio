@@ -17,7 +17,12 @@ import {
   Youtube,
   Instagram,
   Facebook,
-  Play} from 'lucide-react';
+  Play,
+  Smartphone,
+  Cpu,
+  Database,
+  Code2
+} from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 
 // --- Components ---
@@ -154,6 +159,54 @@ const Navbar = () => {
   );
 };
 
+const HeroVisual = () => (
+    <div className="relative w-full h-[500px] flex items-center justify-center">
+      {/* Central Hub */}
+      <GlassCard className="relative z-20 p-8 rounded-[40px] flex items-center justify-center bg-white/40 border-white/60 shadow-2xl" hover={false}>
+          <div className="relative z-10">
+             <Smartphone size={64} className="text-appText" />
+             <div className="absolute -bottom-2 -right-2 bg-appText text-white text-[10px] font-black px-2 py-0.5 rounded-full">v3.0</div>
+          </div>
+          {/* Pulse Effect */}
+          <div className="absolute inset-0 bg-blue-100/30 rounded-[40px] animate-ping opacity-20" />
+      </GlassCard>
+
+      {/* Orbiting Nodes */}
+      {[
+        { i: <Cpu size={28} />, x: -160, y: -100, d: 0, c: "bg-blue-100/80 text-blue-600 border-blue-200" },
+        { i: <Database size={28} />, x: 160, y: -80, d: 1.5, c: "bg-purple-100/80 text-purple-600 border-purple-200" },
+        { i: <Code2 size={28} />, x: -120, y: 140, d: 0.8, c: "bg-green-100/80 text-green-600 border-green-200" },
+        { i: <Layers size={28} />, x: 140, y: 120, d: 2.2, c: "bg-orange-100/80 text-orange-600 border-orange-200" },
+      ].map((node, i) => (
+        <motion.div
+           key={i}
+           animate={{ y: [node.y, node.y - 20, node.y] }}
+           transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut", delay: node.d }}
+           className={`absolute z-10 p-5 rounded-2xl shadow-lg border backdrop-blur-md ${node.c}`}
+           style={{ x: node.x }} // Set X directly
+        >
+           {node.i}
+           {/* Connecting Line */}
+           <svg className="absolute top-1/2 left-1/2 -z-10 w-[400px] h-[400px] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-30 overflow-visible">
+              <line 
+                x1="200" 
+                y1="200" 
+                x2={200 - node.x} 
+                y2={200 - node.y} 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeDasharray="6 6" 
+                strokeLinecap="round"
+              />
+           </svg>
+        </motion.div>
+      ))}
+
+      {/* Decorative Blur */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full blur-3xl -z-10" />
+    </div>
+);
+
 const Hero = () => {
   const socialLinks = [
     { icon: Github, url: "https://github.com/Saon00" },
@@ -164,56 +217,64 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center pt-32 pb-10 bg-appBg">
+    <section className="relative min-h-screen flex items-center pt-20 bg-appBg overflow-hidden">
       {/* grid overlay */}
       <div className="absolute inset-0 bg-grid pointer-events-none" />
   
       {/* content */}
       <div className="relative container mx-auto px-10">
-        <div className="max-w-4xl">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-xs font-black tracking-[0.5em] text-appText mb-10 uppercase"
-          >
-            DHAKA, BD / 23.81° N
-          </motion.div>
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="font-heading text-6xl md:text-8xl lg:text-9xl font-black text-appText mb-12 leading-[0.85] tracking-tighter"
-          >
-            Flutter Developer & Researcher<span className="text-appShadow">.</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-appGray text-xl md:text-3xl max-w-2xl mb-16 leading-tight font-accent font-semibold"
-          >
-            Md. Saon Sikder — Building pixel-perfect ecosystems and researching machine intelligence.
-          </motion.p>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-wrap gap-10"
-          >
-            <MinimalButton className="px-12 py-5 text-lg">Explore Dossier</MinimalButton>
-            <div className="flex gap-6 items-center">
-              {socialLinks.map(({ icon: Icon, url }, i) => (
-                <a
-                  key={i}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 rounded-full bg-appText/5 border border-appText/10 backdrop-blur-sm text-appGray hover:text-appText hover:bg-appText/10 transition-all transform hover:scale-110"
-                >
-                  <Icon size={24} />
-                </a>
-              ))}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column: Text */}
+            <div className="max-w-3xl z-20">
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-xs font-black tracking-[0.5em] text-appText mb-10 uppercase"
+              >
+                DHAKA, BD / 23.81° N
+              </motion.div>
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="font-heading text-6xl md:text-8xl font-black text-appText mb-8 leading-[0.9] tracking-tighter"
+              >
+                Flutter Developer & Researcher<span className="text-appShadow">.</span>
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-appGray text-xl md:text-2xl mb-12 leading-relaxed font-accent font-medium max-w-xl"
+              >
+                Md. Saon Sikder — Building pixel-perfect ecosystems and researching machine intelligence.
+              </motion.p>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="flex flex-col sm:flex-row gap-8 items-start sm:items-center"
+              >
+                <MinimalButton className="px-10 py-5 text-base shadow-xl bg-white border border-white/50">Explore Dossier</MinimalButton>
+                <div className="flex gap-4 items-center">
+                  {socialLinks.map(({ icon: Icon, url }, i) => (
+                    <a
+                      key={i}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3.5 rounded-full bg-white/40 border border-white/60 text-appGray hover:text-appText hover:bg-white hover:shadow-lg transition-all transform hover:scale-110"
+                    >
+                      <Icon size={20} />
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
             </div>
-          </motion.div>
+
+            {/* Right Column: Visual */}
+            <div className="hidden lg:block relative z-10">
+               <HeroVisual />
+            </div>
         </div>
       </div>
     </section>
@@ -258,13 +319,15 @@ const About = () => (
                  </div>
               </GlassCard>
             ))}
+
+
           </div>
         </div>
         <div className="lg:w-1/2 flex justify-center lg:justify-end relative">
            <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/30 to-purple-100/30 blur-3xl rounded-full -z-10" />
            <GlassCard className="relative p-2 w-[70%] lg:w-[80%] aspect-square rotate-3 hover:rotate-0 transition-transform duration-500">
              <div className="w-full h-full rounded-[28px] overflow-hidden relative">
-               <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600" alt="Profile" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+               <img src="https://i.ibb.co.com/LhHkFKfq/1000016829.jpg?auto=format&fit=crop&q=80&w=600" alt="Profile" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                <div className="absolute bottom-6 left-6 text-white">
                  <div className="font-black text-xl tracking-widest uppercase">Saon</div>
