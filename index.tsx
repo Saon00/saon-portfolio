@@ -42,6 +42,33 @@ const NeumorphicCard = ({ children, className = "", inset = false, hover = true 
   </motion.div>
 );
 
+const GlassCard = ({ children, className = "", hover = true }) => (
+  <motion.div 
+    whileHover={hover ? { y: -4 } : {}}
+    className={`bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl rounded-[32px] ${className}`}
+  >
+    {children}
+  </motion.div>
+);
+
+const sectionReveal = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+};
+
+const itemReveal = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5 }
+  }
+};
+
 const SectionHeader = ({ title, subtitle, location = "REYKJAVÍK / 64.14° N" }) => (
   <div className="mb-12 md:mb-20 relative z-20">
     <motion.div 
@@ -91,7 +118,9 @@ const Navbar = () => {
   const links = [
     { name: 'About', href: '#about' }, 
     { name: 'Arsenal', href: '#skills' }, 
-    { name: 'Dossier', href: '#research' }, 
+    { name: 'Research', href: '#research' }, 
+    { name: 'Experience', href: '#experience' }, 
+    { name: 'Education', href: '#education' },
     { name: 'Apps', href: '#projects' }, 
     { name: 'Academy', href: '#academy' }
   ];
@@ -132,13 +161,17 @@ const Navbar = () => {
 };
 
 const Hero = () => (
-  <section className="min-h-screen flex items-center pt-32 pb-20 bg-grid">
-    <div className="container mx-auto px-10">
+  <section className="relative min-h-screen flex items-center pt-32 pb-10 bg-appBg">
+    {/* grid overlay */}
+    <div className="absolute inset-0 bg-grid pointer-events-none" />
+
+    {/* content */}
+    <div className="relative container mx-auto px-10">
       <div className="max-w-4xl">
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-xs font-black tracking-[0.5em] text-appGray mb-10 uppercase"
+          className="text-xs font-black tracking-[0.5em] text-appText mb-10 uppercase"
         >
           DHAKA, BD / 23.81° N
         </motion.div>
@@ -164,10 +197,12 @@ const Hero = () => (
           className="flex flex-wrap gap-10"
         >
           <MinimalButton className="px-12 py-5 text-lg">Explore Dossier</MinimalButton>
-          <div className="flex gap-8 items-center">
-            <a href="#" className="text-appGray hover:text-appText transition-all transform hover:scale-110"><Github size={26} /></a>
-            <a href="#" className="text-appGray hover:text-appText transition-all transform hover:scale-110"><Linkedin size={26} /></a>
-            <a href="#" className="text-appGray hover:text-appText transition-all transform hover:scale-110"><Youtube size={26} /></a>
+          <div className="flex gap-6 items-center">
+            {[Github, Linkedin, Youtube, Facebook, Instagram].map((Icon, i) => (
+              <a key={i} href="#" className="p-4 rounded-full bg-appText/5 border border-appText/10 backdrop-blur-sm text-appGray hover:text-appText hover:bg-appText/10 transition-all transform hover:scale-110">
+                <Icon size={24} />
+              </a>
+            ))}
           </div>
         </motion.div>
       </div>
@@ -176,7 +211,7 @@ const Hero = () => (
 );
 
 const About = () => (
-  <section id="about" className="py-40">
+  <section id="about" className="py-20">
     <div className="container mx-auto px-10">
       <div className="grid lg:grid-cols-2 gap-32 items-center">
         <div className="relative">
@@ -225,7 +260,7 @@ const Skills = () => {
     { n: "Scikit-Learn", i: <Microscope size={24} /> }
   ];
   return (
-    <section id="skills" className="py-40 border-y border-appShadow/20">
+    <section id="skills" className="py-20 border-y border-appShadow/20">
       <div className="container mx-auto px-10">
         <SectionHeader 
           title="Technical Arsenal" 
@@ -246,6 +281,145 @@ const Skills = () => {
   );
 };
 
+const Research = () => {
+  const papers = [
+    { 
+      title: "Optimized Neural Networks in Mobile Architecture", 
+      journal: "Int. Journal of Computer Science", 
+      year: "2023", 
+      desc: "Comparative study on on-device machine learning models for real-time inference in Flutter environments, optimizing battery and CPU usage." 
+    },
+    { 
+      title: "Automated Data Labeling for Emerging Projects", 
+      journal: "Global Tech Symposium (GTS)", 
+      year: "2024", 
+      desc: "Proposing a framework for rapid ML integration in cross-platform development using automated synthetic data generation." 
+    }
+  ];
+  return (
+    <motion.section 
+      id="research" 
+      initial="hidden" 
+      whileInView="visible" 
+      viewport={{ once: true, amount: 0.2 }} 
+      variants={sectionReveal} 
+      className="py-24 bg-appBg relative z-20"
+    >
+      <div className="container mx-auto px-6">
+        <SectionHeader title="Scientific Contributions" subtitle="Pushing the boundaries of mobile intelligence through peer-reviewed research." />
+        <div className="grid md:grid-cols-2 gap-10">
+          {papers.map((p, i) => (
+            <GlassCard key={i} className="p-10">
+              <div className="flex items-start justify-between mb-8">
+                <Microscope className="text-appText" size={38} />
+                <div className="px-3 py-1 bg-appText/5 border border-appText/10 rounded text-appText text-[10px] font-black uppercase tracking-widest">{p.year}</div>
+              </div>
+              <div className="text-[11px] font-black text-appGray mb-3 tracking-[0.2em] uppercase">{p.journal}</div>
+              <h4 className="font-heading text-xl md:text-2xl font-black mb-6 leading-snug text-appText">{p.title}</h4>
+              <p className="text-appGray text-sm md:text-base leading-relaxed mb-8 font-accent">{p.desc}</p>
+              <MinimalButton className="px-6 py-3 text-xs bg-transparent shadow-none border border-appText/10 hover:bg-appText/5">
+                Access Publication <ExternalLink size={16} />
+              </MinimalButton>
+            </GlassCard>
+          ))}
+        </div>
+      </div>
+    </motion.section>
+  );
+};
+
+const Experience = () => {
+  const items = [
+    { role: "Flutter Developer Intern", company: "TechNexus Solutions", date: "Jan 2024 - Present", desc: "Spearheading UI modernization for core enterprise products. Implementing BLoC for robust state handling and crafting custom animation libraries." },
+    { role: "ML Researcher", company: "Academic Research", date: "2023 - 2024", desc: "Published two research papers focusing on automated data processing and neural network optimization. Presented findings at regional tech symposiums." },
+    { role: "GDSC Core Member", company: "Developer Student Club", date: "2022 - 2023", desc: "Curated technical workshops on cross-platform development. Mentored junior developers in building social-impact applications." }
+  ];
+
+  return (
+    <motion.section 
+      id="experience" 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={sectionReveal}
+      className="py-32 bg-appBg relative z-20"
+    >
+      <div className="container mx-auto px-6">
+        <SectionHeader title="Professional Path" subtitle="A timeline of engineering excellence and scientific discovery." />
+        
+        <div className="max-w-6xl mx-auto relative px-4">
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-appText/10 -translate-x-1/2 hidden lg:block" />
+          
+          <div className="space-y-24 md:space-y-32">
+            {items.map((item, i) => (
+              <div key={i} className="relative">
+                <div className="absolute left-[-20px] lg:left-1/2 top-0 w-6 h-6 rounded-full bg-appText border-8 border-appBg lg:-translate-x-1/2 shadow-xl z-10" />
+                
+                <div className={`flex flex-col lg:flex-row items-start ${i % 2 === 0 ? 'lg:justify-start' : 'lg:justify-end'}`}>
+                  <div className={`w-full lg:w-[46%] ${i % 2 === 0 ? 'lg:text-right lg:pr-16' : 'lg:text-left lg:pl-16'}`}>
+                    <motion.div variants={itemReveal}>
+                      <div className="text-appText/60 font-heading font-black text-sm mb-4 tracking-[0.3em] uppercase">{item.date}</div>
+                      <h4 className="font-heading text-2xl md:text-3xl font-black mb-2 text-appText">{item.role}</h4>
+                      <div className="text-appGray font-bold mb-8 text-lg">{item.company}</div>
+                      
+                      <GlassCard className="p-8 text-left">
+                        <p className="text-appGray text-base md:text-lg font-accent leading-relaxed">
+                          {item.desc}
+                        </p>
+                      </GlassCard>
+                    </motion.div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.section>
+  );
+};
+
+const Education = () => {
+  const items = [
+    { degree: "B.Sc. in Computer Science & Engineering", school: "University of Dhaka", date: "2020 - 2024", desc: "Focus on Artificial Intelligence and Mobile Computing. Graduated with Honors." },
+    { degree: "Higher Secondary Certificate", school: "Dhaka College", date: "2018 - 2020", desc: "Science concentration. Awarded for excellence in Physics and Mathematics." }
+  ];
+
+  return (
+    <motion.section 
+      id="education" 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={sectionReveal}
+      className="py-32 bg-appBg relative z-20"
+    >
+      <div className="container mx-auto px-6">
+        <SectionHeader title="Academic Foundation" subtitle="The theoretical groundwork powering practical innovation." />
+        
+        <div className="max-w-4xl mx-auto grid gap-12">
+          {items.map((item, i) => (
+             <GlassCard key={i} className="p-10 flex flex-col md:flex-row gap-10 items-start">
+                <div className="min-w-[120px]">
+                   <div className="text-5xl font-black text-appText/10 font-heading">{'0' + (i + 1)}</div>
+                </div>
+                <div>
+                   <div className="flex flex-col md:flex-row md:items-center gap-4 mb-4">
+                      <h4 className="font-heading text-2xl font-black text-appText">{item.school}</h4>
+                      <span className="hidden md:block text-appGray/30">•</span>
+                      <span className="text-xs font-black uppercase tracking-widest text-appText/60 bg-appText/5 px-3 py-1 rounded">{item.date}</span>
+                   </div>
+                   <div className="text-lg font-bold text-appGray mb-4">{item.degree}</div>
+                   <p className="text-appGray/80 font-accent leading-relaxed">{item.desc}</p>
+                </div>
+             </GlassCard>
+          ))}
+        </div>
+      </div>
+    </motion.section>
+  );
+};
+
 const Projects = () => {
   const apps = [
     { title: "NeoCommerce", d: "ML shopping engine.", img: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=600" },
@@ -253,7 +427,7 @@ const Projects = () => {
     { title: "Crypton 2.0", d: "Crypto Tracker.", img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&q=80&w=600" }
   ];
   return (
-    <section id="projects" className="py-40">
+    <section id="projects" className="py-20">
       <div className="container mx-auto px-10 text-center">
         <SectionHeader title="Featured Apps" subtitle="High-end smartphone mockups demonstrating research-backed motion and intelligent UI." />
         <div className="flex flex-wrap justify-center gap-16 md:gap-32 mt-20">
@@ -287,7 +461,7 @@ const Projects = () => {
 };
 
 const Academy = () => (
-  <section id="academy" className="py-40 bg-appBg border-t border-appShadow/30">
+  <section id="academy" className="py-20 bg-appBg border-t border-appShadow/30">
     <div className="container mx-auto px-10">
       <div className="grid lg:grid-cols-12 gap-24 items-center">
         <div className="lg:col-span-5">
@@ -320,7 +494,7 @@ const Academy = () => (
 );
 
 const Contact = () => (
-  <section id="contact" className="py-40">
+  <section id="contact" className="py-20">
     <div className="container mx-auto px-10 max-w-5xl">
       <SectionHeader title="Sync Streams" subtitle="Available for enterprise collaborations, ML research partnerships, or guest lectures." />
       <div className="grid md:grid-cols-2 gap-24 mt-20">
@@ -432,6 +606,9 @@ const App = () => {
       <Hero />
       <About />
       <Skills />
+      <Research />
+      <Experience />
+      <Education />
       <Projects />
       <Academy />
       <Contact />
