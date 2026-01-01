@@ -6,29 +6,18 @@ import {
   Github, 
   Linkedin, 
   Mail, 
-  FileText, 
   Layers, 
-  Cpu, 
-  Code2, 
-  Smartphone, 
   ExternalLink, 
   Menu, 
   X, 
-  ChevronRight,
   MessageSquare,
   Send,
-  User,
   BookOpen,
   Microscope,
   Youtube,
   Instagram,
   Facebook,
-  Play,
-  ArrowRight,
-  Database,
-  Terminal,
-  Server
-} from 'lucide-react';
+  Play} from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 
 // --- Components ---
@@ -69,7 +58,7 @@ const itemReveal = {
   }
 };
 
-const SectionHeader = ({ title, subtitle, location = "REYKJAVÍK / 64.14° N" }) => (
+const SectionHeader = ({ title, subtitle, location = "DHAKA, BD / 23.81° N" }) => (
   <div className="mb-12 md:mb-20 relative z-20">
     <motion.div 
       initial={{ opacity: 0 }}
@@ -95,15 +84,20 @@ const SectionHeader = ({ title, subtitle, location = "REYKJAVÍK / 64.14° N" })
   </div>
 );
 
-const MinimalButton = ({ children, onClick = () => {}, className = "" }) => (
-  <motion.button
-    whileTap={{ scale: 0.96 }}
-    onClick={onClick}
-    className={`neu-button px-8 py-4 rounded-full font-heading font-bold text-appText flex items-center gap-2 text-sm ${className}`}
-  >
-    {children}
-  </motion.button>
-);
+const MinimalButton = ({ children, onClick = () => {}, className = "", as = "button", href = undefined, ...props }) => {
+  const Component = as === "a" ? motion.a : motion.button;
+  return (
+    <Component
+      whileTap={{ scale: 0.96 }}
+      onClick={onClick}
+      href={href}
+      className={`neu-button px-8 py-4 rounded-full font-heading font-bold text-appText flex items-center gap-2 text-sm ${className}`}
+      {...props}
+    >
+      {children}
+    </Component>
+  );
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -160,88 +154,123 @@ const Navbar = () => {
   );
 };
 
-const Hero = () => (
-  <section className="relative min-h-screen flex items-center pt-32 pb-10 bg-appBg">
-    {/* grid overlay */}
-    <div className="absolute inset-0 bg-grid pointer-events-none" />
+const Hero = () => {
+  const socialLinks = [
+    { icon: Github, url: "https://github.com/Saon00" },
+    { icon: Linkedin, url: "https://www.linkedin.com/in/saon00" },
+    { icon: Youtube, url: "https://www.youtube.com/@BlackOsRa" },
+    { icon: Facebook, url: "https://facebook.com/saon00" },
+    { icon: Instagram, url: "https://instagram.com/saon00" },
+  ];
 
-    {/* content */}
-    <div className="relative container mx-auto px-10">
-      <div className="max-w-4xl">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-xs font-black tracking-[0.5em] text-appText mb-10 uppercase"
-        >
-          DHAKA, BD / 23.81° N
-        </motion.div>
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="font-heading text-6xl md:text-8xl lg:text-9xl font-black text-appText mb-12 leading-[0.85] tracking-tighter"
-        >
-          Flutter<br/>Developer<span className="text-appShadow">.</span>
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-appGray text-xl md:text-3xl max-w-2xl mb-16 leading-tight font-accent font-semibold"
-        >
-          Md. Saon Sikder — Building pixel-perfect ecosystems and researching machine intelligence.
-        </motion.p>
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex flex-wrap gap-10"
-        >
-          <MinimalButton className="px-12 py-5 text-lg">Explore Dossier</MinimalButton>
-          <div className="flex gap-6 items-center">
-            {[Github, Linkedin, Youtube, Facebook, Instagram].map((Icon, i) => (
-              <a key={i} href="#" className="p-4 rounded-full bg-appText/5 border border-appText/10 backdrop-blur-sm text-appGray hover:text-appText hover:bg-appText/10 transition-all transform hover:scale-110">
-                <Icon size={24} />
-              </a>
-            ))}
-          </div>
-        </motion.div>
+  return (
+    <section className="relative min-h-screen flex items-center pt-32 pb-10 bg-appBg">
+      {/* grid overlay */}
+      <div className="absolute inset-0 bg-grid pointer-events-none" />
+  
+      {/* content */}
+      <div className="relative container mx-auto px-10">
+        <div className="max-w-4xl">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-xs font-black tracking-[0.5em] text-appText mb-10 uppercase"
+          >
+            DHAKA, BD / 23.81° N
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="font-heading text-6xl md:text-8xl lg:text-9xl font-black text-appText mb-12 leading-[0.85] tracking-tighter"
+          >
+            Flutter Developer & Researcher<span className="text-appShadow">.</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-appGray text-xl md:text-3xl max-w-2xl mb-16 leading-tight font-accent font-semibold"
+          >
+            Md. Saon Sikder — Building pixel-perfect ecosystems and researching machine intelligence.
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="flex flex-wrap gap-10"
+          >
+            <MinimalButton className="px-12 py-5 text-lg">Explore Dossier</MinimalButton>
+            <div className="flex gap-6 items-center">
+              {socialLinks.map(({ icon: Icon, url }, i) => (
+                <a
+                  key={i}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-full bg-appText/5 border border-appText/10 backdrop-blur-sm text-appGray hover:text-appText hover:bg-appText/10 transition-all transform hover:scale-110"
+                >
+                  <Icon size={24} />
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
+    </section>
+  );
+};
+
+const TechBadge = ({ name, color, icon: Icon }) => (
+  <motion.div 
+    whileHover={{ scale: 1.05 }}
+    className="flex items-stretch overflow-hidden rounded-lg font-bold text-xs uppercase tracking-wider shadow-sm"
+  >
+    <div className={`flex items-center justify-center px-3 py-2 text-white ${color}`}>
+      {Icon ? <Icon size={16} /> : name[0]}
     </div>
-  </section>
+    <div className="bg-white/80 backdrop-blur-sm px-4 py-2 flex items-center text-appText border-y border-r border-gray-100 rounded-r-lg">
+      {name}
+    </div>
+  </motion.div>
 );
 
 const About = () => (
-  <section id="about" className="py-20">
+  <section id="about" className="py-24 bg-appBg/50">
     <div className="container mx-auto px-10">
-      <div className="grid lg:grid-cols-2 gap-32 items-center">
-        <div className="relative">
-          <NeumorphicCard className="aspect-[4/5] p-1.5" hover={false}>
-            <div className="w-full h-full rounded-[28px] bg-white flex items-center justify-center text-appBg overflow-hidden border border-appShadow/20">
-               <User size={240} strokeWidth={0.2} className="text-appShadow/40" />
-            </div>
-          </NeumorphicCard>
-        </div>
-        <div>
+      <div className="flex flex-col-reverse lg:flex-row gap-20 items-center">
+        <div className="lg:w-1/2">
           <SectionHeader 
             title="Sparse Clouds" 
             subtitle="I specialize in the convergence of Flutter's reactive UI with advanced Machine Learning models, creating apps that aren't just tools, but intelligent companions." 
           />
-          <div className="grid grid-cols-2 gap-12 mt-16">
+          <div className="grid grid-cols-2 gap-6 mt-12">
             {[
-              { l: "Focus", v: "ML Research", i: <Microscope size={26} /> },
-              { l: "Papers", v: "2 Publications", i: <BookOpen size={26} /> },
-              { l: "Academy", v: "50k+ Devs", i: <Youtube size={26} /> },
-              { l: "Stack", v: "Flutter Core", i: <Layers size={26} /> }
+              { l: "Focus", v: "ML Research", i: <Microscope size={22} /> },
+              { l: "Papers", v: "2 Publications", i: <BookOpen size={22} /> },
+              { l: "Academy", v: "5k+ Devs", i: <Youtube size={22} /> },
+              { l: "Stack", v: "Flutter Core", i: <Layers size={22} /> }
             ].map((s, i) => (
-              <div key={i} className="flex gap-5 items-start">
-                <div className="text-appGray mt-1.5">{s.i}</div>
-                <div>
-                  <div className="font-heading font-black text-appText text-xl leading-none mb-1">{s.v}</div>
-                  <div className="text-[10px] uppercase font-black text-appGray tracking-widest">{s.l}</div>
-                </div>
-              </div>
+              <GlassCard key={i} className="p-6 flex items-center gap-4 hover:bg-white/80 transition-colors" hover={true}>
+                 <div className="p-3 rounded-full bg-appText/5 text-appText">{s.i}</div>
+                 <div>
+                    <div className="font-heading font-black text-appText text-lg leading-none mb-1">{s.v}</div>
+                    <div className="text-[9px] uppercase font-black text-appGray tracking-widest">{s.l}</div>
+                 </div>
+              </GlassCard>
             ))}
           </div>
+        </div>
+        <div className="lg:w-1/2 flex justify-center lg:justify-end relative">
+           <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/30 to-purple-100/30 blur-3xl rounded-full -z-10" />
+           <GlassCard className="relative p-2 w-[70%] lg:w-[80%] aspect-square rotate-3 hover:rotate-0 transition-transform duration-500">
+             <div className="w-full h-full rounded-[28px] overflow-hidden relative">
+               <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600" alt="Profile" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+               <div className="absolute bottom-6 left-6 text-white">
+                 <div className="font-black text-xl tracking-widest uppercase">Saon</div>
+               </div>
+             </div>
+           </GlassCard>           
         </div>
       </div>
     </div>
@@ -250,30 +279,24 @@ const About = () => (
 
 const Skills = () => {
   const techs = [
-    { n: "Flutter", i: <Smartphone size={24} /> }, 
-    { n: "Dart", i: <Terminal size={24} /> }, 
-    { n: "Python", i: <Code2 size={24} /> }, 
-    { n: "TensorFlow", i: <Cpu size={24} /> },
-    { n: "Firebase", i: <Database size={24} /> }, 
-    { n: "Clean Arch", i: <Layers size={24} /> },
-    { n: "BLoC", i: <Server size={24} /> }, 
-    { n: "Scikit-Learn", i: <Microscope size={24} /> }
+    "C", "Python", "Java", "Dart", "HTML5",
+    "Firebase", "MySQL", "Supabase", "Postman", "Apache",
+    "OpenCV", "ScikitLearn", "TensorFlow",
+    "Flutter", "Canva", "Notion"
   ];
+
   return (
-    <section id="skills" className="py-20 border-y border-appShadow/20">
+    <section id="skills" className="py-24 border-y border-appShadow/20 bg-appBg">
       <div className="container mx-auto px-10">
         <SectionHeader 
           title="Technical Arsenal" 
           subtitle="A curated stack of technologies I use to architect robust, scalable digital experiences." 
         />
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div className="flex flex-wrap gap-6 justify-center max-w-5xl mx-auto">
           {techs.map((tech, i) => (
-            <NeumorphicCard key={i} inset className="p-10 flex flex-col items-center justify-center text-center group">
-              <div className="text-appGray group-hover:text-appText transition-all mb-6">
-                {tech.i}
-              </div>
-              <div className="font-heading font-black text-appText text-sm uppercase tracking-widest">{tech.n}</div>
-            </NeumorphicCard>
+            <GlassCard key={i} className="px-8 py-4 flex items-center justify-center text-center hover:bg-white/80 transition-all cursor-default" hover={true}>
+              <span className="font-heading font-black text-appText text-sm uppercase tracking-widest">{tech}</span>
+            </GlassCard>
           ))}
         </div>
       </div>
@@ -284,16 +307,17 @@ const Skills = () => {
 const Research = () => {
   const papers = [
     { 
-      title: "Optimized Neural Networks in Mobile Architecture", 
-      journal: "Int. Journal of Computer Science", 
-      year: "2023", 
-      desc: "Comparative study on on-device machine learning models for real-time inference in Flutter environments, optimizing battery and CPU usage." 
+      title: "Comparative Evaluation of Machine Learning and Hybrid Models for Stock Price Forecasting: A Case Study on Grameenphone Ltd. in Bangladesh’s Emerging Market", 
+      journal: "2025 IEEE 4th International Conference (RAAICON)", 
+      year: "2025", 
+      desc: "" ,
+      
     },
     { 
-      title: "Automated Data Labeling for Emerging Projects", 
-      journal: "Global Tech Symposium (GTS)", 
-      year: "2024", 
-      desc: "Proposing a framework for rapid ML integration in cross-platform development using automated synthetic data generation." 
+      title: "Improving mango ripeness grading accuracy: A comprehensive analysis of deep learning, traditional machine learning, and transfer learning techniques", 
+      journal: "Machine Learning with Applications", 
+      year: "2025", 
+      desc: ""
     }
   ];
   return (
@@ -330,9 +354,11 @@ const Research = () => {
 
 const Experience = () => {
   const items = [
-    { role: "Flutter Developer Intern", company: "TechNexus Solutions", date: "Jan 2024 - Present", desc: "Spearheading UI modernization for core enterprise products. Implementing BLoC for robust state handling and crafting custom animation libraries." },
-    { role: "ML Researcher", company: "Academic Research", date: "2023 - 2024", desc: "Published two research papers focusing on automated data processing and neural network optimization. Presented findings at regional tech symposiums." },
-    { role: "GDSC Core Member", company: "Developer Student Club", date: "2022 - 2023", desc: "Curated technical workshops on cross-platform development. Mentored junior developers in building social-impact applications." }
+    { role: "Junior Flutter Developer", company: "SM Technology", date: "Aug 2025 - Present", desc: "" },
+    { role: "Research Assistant", company: "Department of Computer Science and Engineering, Faridpur Engineering College", date: "Part-time", desc: "" },
+    { role: "Python Programming Trainer", company: "ICT Division", date: "Oct 2023 - Mar 2024", desc: "A government initiative to train high school students in Python programming. About 180 students were trained from Salauddin Ahmed High School & Shamsul Hoque Khan School & College" },
+    { role: "Intern Flutter Developer", company: "Isbah IT", date: "Aug 2023- Oct 2023", desc: "" },
+    
   ];
 
   return (
@@ -381,8 +407,8 @@ const Experience = () => {
 
 const Education = () => {
   const items = [
-    { degree: "B.Sc. in Computer Science & Engineering", school: "University of Dhaka", date: "2020 - 2024", desc: "Focus on Artificial Intelligence and Mobile Computing. Graduated with Honors." },
-    { degree: "Higher Secondary Certificate", school: "Dhaka College", date: "2018 - 2020", desc: "Science concentration. Awarded for excellence in Physics and Mathematics." }
+    { degree: "B.Sc. in Engineering in Computer Science & Engineering", school: "Faridpur Engineering College", date: "2018 - 2023", desc: "Focus on Artificial Intelligence and Mobile Computing. Graduated with Honors." },
+    { degree: "Higher Secondary Certificate", school: "Dr. Mahbubur Rahman Mollah College", date: "2015 - 2017", desc: "Science concentration. Awarded for excellence in Physics and Mathematics." }
   ];
 
   return (
@@ -422,39 +448,42 @@ const Education = () => {
 
 const Projects = () => {
   const apps = [
-    { title: "NeoCommerce", d: "ML shopping engine.", img: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=600" },
-    { title: "FitPulse AI", d: "On-device analysis.", img: "https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&q=80&w=600" },
-    { title: "Crypton 2.0", d: "Crypto Tracker.", img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&q=80&w=600" }
+    { title: "Mind Twin", d: "ML shopping engine.", img: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=600" },
+    { title: "SpanX", d: "On-device analysis.", img: "https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&q=80&w=600" },
+    { title: "Devyn", d: "Crypto Tracker.", img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&q=80&w=600" },
+    { title: "ChopTop", d: "AI Text Summarizer.", img: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=600" },
+     { title: "The Carribean Note", d: "Object Detection.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600" }
   ];
+
   return (
-    <section id="projects" className="py-20">
-      <div className="container mx-auto px-10 text-center">
+    <section id="projects" className="py-24 overflow-hidden bg-appBg">
+      <div className="container mx-auto px-10 mb-16 text-center">
         <SectionHeader title="Featured Apps" subtitle="High-end smartphone mockups demonstrating research-backed motion and intelligent UI." />
-        <div className="flex flex-wrap justify-center gap-16 md:gap-32 mt-20">
-          {apps.map((app, i) => (
-            <motion.div 
-              key={i} 
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="flex flex-col items-center group cursor-pointer"
-            >
-              <div className="phone-frame mb-10 transform group-hover:scale-105 transition-all duration-500">
-                <div className="phone-island" />
-                <div className="phone-screen">
-                  <img src={app.img} className="w-full h-full object-cover" alt={app.title} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
-                     <span className="text-white text-[10px] font-black tracking-widest uppercase">Live Demo Available</span>
+      </div>
+      
+      <div className="relative w-full">
+         <div className="flex gap-20 w-max animate-infinite-scroll">
+            {[...apps, ...apps, ...apps].map((app, i) => (
+              <div 
+                key={i} 
+                className="flex flex-col items-center group cursor-pointer w-[300px] flex-shrink-0"
+              >
+                <div className="phone-frame mb-8 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
+                  <div className="phone-island" />
+                  <div className="phone-screen bg-black">
+                    <img src={app.img} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt={app.title} />
                   </div>
                 </div>
+                <div className="text-center">
+                  <h4 className="font-heading text-2xl font-black mb-2 text-appText">{app.title}</h4>
+                  <p className="text-appGray text-xs font-accent font-bold uppercase tracking-wider">{app.d}</p>
+                </div>
               </div>
-              <div className="text-center">
-                <h4 className="font-heading text-3xl font-black mb-3 text-appText">{app.title}</h4>
-                <p className="text-appGray text-sm font-accent font-bold uppercase tracking-wider">{app.d}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+            ))}
+         </div>
+         {/* Gradients for smooth fade */}
+         <div className="absolute top-0 left-0 h-full w-32 bg-gradient-to-r from-appBg to-transparent z-10" />
+         <div className="absolute top-0 right-0 h-full w-32 bg-gradient-to-l from-appBg to-transparent z-10" />
       </div>
     </section>
   );
@@ -467,26 +496,72 @@ const Academy = () => (
         <div className="lg:col-span-5">
           <SectionHeader title="Programming Academy" subtitle="Educating thousands of developers on Flutter, Dart, and AI integration through structured tutorials." />
           <div className="flex flex-col gap-8">
-            <MinimalButton className="justify-center py-6 text-base shadow-xl">
+            <MinimalButton as="a" href="https://www.youtube.com/@BlackOsRa" target="_blank" rel="noopener noreferrer" className="justify-center py-6 text-base shadow-xl">
               <Youtube size={24} /> Subscribe to Channel
             </MinimalButton>
-            <div className="grid grid-cols-2 gap-6">
-              <a href="#" className="neu-button p-6 rounded-3xl flex flex-col items-center gap-4 transition-all hover:scale-105"><Facebook className="text-blue-600" size={32} /> <span className="font-black text-[10px] tracking-widest uppercase text-appGray">COMMUNITY</span></a>
-              <a href="#" className="neu-button p-6 rounded-3xl flex flex-col items-center gap-4 transition-all hover:scale-105"><Instagram className="text-pink-600" size={32} /> <span className="font-black text-[10px] tracking-widest uppercase text-appGray">UPDATES</span></a>
-            </div>
+           <div className="grid grid-cols-2 gap-6">
+  <a
+    href="https://facebook.com/blackosra"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="neu-button p-6 rounded-3xl flex flex-col items-center gap-4 transition-all hover:scale-105"
+  >
+    <Facebook className="text-blue-600" size={32} />
+    <span className="font-black text-[10px] tracking-widest uppercase text-appGray">
+      COMMUNITY
+    </span>
+  </a>
+
+  <a
+    href="https://instagram.com/blackosra"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="neu-button p-6 rounded-3xl flex flex-col items-center gap-4 transition-all hover:scale-105"
+  >
+    <Instagram className="text-pink-600" size={32} />
+    <span className="font-black text-[10px] tracking-widest uppercase text-appGray">
+      UPDATES
+    </span>
+  </a>
+</div>
           </div>
         </div>
         <div className="lg:col-span-7">
-          <NeumorphicCard className="aspect-video p-2" hover={false}>
-             <div className="w-full h-full bg-appText rounded-[28px] flex items-center justify-center relative group cursor-pointer overflow-hidden">
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-                <Play size={80} className="text-white opacity-20 group-hover:opacity-100 transition-all z-20 group-hover:scale-110" />
-                <div className="absolute bottom-12 left-12 z-20 text-left">
-                  <div className="text-[10px] font-black uppercase text-appShadow tracking-[0.4em] mb-3">Featured Tutorial</div>
-                  <div className="text-white font-heading text-2xl font-black">Advanced BLoC Patterns</div>
-                </div>
-             </div>
-          </NeumorphicCard>
+         <NeumorphicCard className="aspect-video p-2" hover={false}>
+  <a
+    href="https://youtu.be/FF2UcqjOGrU"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-full h-full rounded-[28px] overflow-hidden relative group cursor-pointer block"
+  >
+    {/* Thumbnail */}
+    <img
+      src="https://img.youtube.com/vi/FF2UcqjOGrU/maxresdefault.jpg"
+      alt="Advanced BLoC Patterns"
+      className="w-full h-full object-cover"
+    />
+
+    {/* Overlay */}
+    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+
+    {/* Play icon */}
+    <Play
+      size={80}
+      className="absolute inset-0 m-auto text-white opacity-80 group-hover:scale-110 transition-transform z-20"
+    />
+
+    {/* Text */}
+    <div className="absolute bottom-12 left-12 z-20 text-left">
+      <div className="text-[10px] font-black uppercase text-appShadow tracking-[0.4em] mb-3">
+        Featured Tutorial
+      </div>
+      <div className="text-white font-heading text-2xl font-black">
+        পাইথন বাংলা টিউটোরিয়াল - Python Tutorial for Beginners (Bangla) - Full Course
+      </div>
+    </div>
+  </a>
+</NeumorphicCard>
+
         </div>
       </div>
     </div>
@@ -503,7 +578,7 @@ const Contact = () => (
             <div className="neu-button p-5 rounded-3xl group-hover:scale-110 transition-transform"><Mail className="text-appGray" size={28} /></div>
             <div>
               <div className="text-[10px] uppercase font-black text-appGray tracking-[0.3em] mb-2">Electronic Mail</div>
-              <div className="text-2xl font-black text-appText">saon.sikder@example.com</div>
+              <div className="text-2xl font-black text-appText">sikdersaon1@gmail.com</div>
             </div>
           </div>
           <div className="flex gap-8 items-start group">

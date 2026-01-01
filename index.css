@@ -96,3 +96,12 @@ section {
 h1, h2 {
   letter-spacing: -0.04em;
 }
+
+@keyframes infinite-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 40s linear infinite;
+}
