@@ -417,10 +417,10 @@ const Research = () => {
 
 const Experience = () => {
   const items = [
-    { role: "Junior Flutter Developer", company: "SM Technology", date: "Aug 2025 - Present", desc: "" },
-    { role: "Research Assistant", company: "Department of Computer Science and Engineering, Faridpur Engineering College", date: "Part-time", desc: "" },
+    { role: "Junior Flutter Developer", company: "SM Technology", date: "Aug 2025 - Present", desc: "Developing and maintaining cross-platform mobile applications using Flutter, focusing on clean UI, performance optimization, and scalable code architecture." },
+    { role: "Research Assistant", company: "Department of Computer Science and Engineering, Faridpur Engineering College", date: "Part-time", desc: "Assisting in academic research, data analysis, and technical documentation, with a focus on software systems and emerging computing technologies." },
     { role: "Python Programming Trainer", company: "ICT Division", date: "Oct 2023 - Mar 2024", desc: "A government initiative to train high school students in Python programming. About 180 students were trained from Salauddin Ahmed High School & Shamsul Hoque Khan School & College" },
-    { role: "Intern Flutter Developer", company: "Isbah IT", date: "Aug 2023- Oct 2023", desc: "" },
+    { role: "Intern Flutter Developer", company: "Isbah IT", date: "Aug 2023- Oct 2023", desc: "Developing and maintaining cross-platform mobile applications using Flutter, focusing on clean UI, performance optimization, and scalable code architecture." },
     
   ];
 
