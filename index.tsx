@@ -327,12 +327,12 @@ const About = () => (
            <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/30 to-purple-100/30 blur-3xl rounded-full -z-10" />
            <GlassCard className="relative p-2 w-[70%] lg:w-[80%] aspect-square rotate-3 hover:rotate-0 transition-transform duration-500">
              <div className="w-full h-full rounded-[28px] overflow-hidden relative">
-               <img src="https://i.ibb.co.com/LhHkFKfq/1000016829.jpg?auto=format&fit=crop&q=80&w=600" alt="Profile" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+               <img src="/images/1000016829.jpg?auto=format&fit=crop&q=80&w=600" alt="Profile" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                <div className="absolute bottom-6 left-6 text-white">
                  <div className="font-black text-xl tracking-widest uppercase">Saon</div>
                </div>
-             </div>
+             </div> 
            </GlassCard>           
         </div>
       </div>
@@ -515,7 +515,7 @@ const Projects = () => {
     { title: "SpanX", d: "On-device analysis.", img: "https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&q=80&w=600" },
     { title: "Devyn", d: "Crypto Tracker.", img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&q=80&w=600" },
     { title: "ChopTop", d: "AI Text Summarizer.", img: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=600" },
-     { title: "The Carribean Note", d: "Object Detection.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600" }
+     { title: "The Carribean Note", d: "Object Detection.", img: "public/images/cara.png" }
   ];
 
   return (
@@ -640,7 +640,7 @@ const Contact = () => (
           <div className="flex gap-8 items-start group">
             <div className="neu-button p-5 rounded-3xl group-hover:scale-110 transition-transform"><Mail className="text-appGray" size={28} /></div>
             <div>
-              <div className="text-[10px] uppercase font-black text-appGray tracking-[0.3em] mb-2">Electronic Mail</div>
+              <div className="text-[10px] uppercase font-black text-appGray tracking-[0.3em] mb-2">For personal queries</div>
               <div className="text-2xl font-black text-appText">sikdersaon1@gmail.com</div>
             </div>
           </div>
@@ -648,7 +648,7 @@ const Contact = () => (
             <div className="neu-button p-5 rounded-3xl group-hover:scale-110 transition-transform"><Linkedin className="text-appGray" size={28} /></div>
             <div>
               <div className="text-[10px] uppercase font-black text-appGray tracking-[0.3em] mb-2">Professional network</div>
-              <div className="text-2xl font-black text-appText">linkedin.com/in/saon-sikder</div>
+              <div className="text-2xl font-black text-appText">Md. Saon Sikder</div>
             </div>
           </div>
         </div>
