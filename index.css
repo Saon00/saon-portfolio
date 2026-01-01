@@ -1,0 +1,98 @@
+
+/* Neumorphic Shadows */
+.neu-convex {
+  background: #F5F5F3;
+  box-shadow: 10px 10px 20px #e0e0de, 
+              -10px -10px 20px #ffffff;
+}
+
+.neu-concave {
+  background: #F5F5F3;
+  box-shadow: inset 6px 6px 12px #e0e0de, 
+              inset -6px -6px 12px #ffffff;
+}
+
+.neu-button {
+  background: #F5F5F3;
+  box-shadow: 4px 4px 8px #e0e0de, 
+              -4px -4px 8px #ffffff;
+  transition: all 0.2s ease-in-out;
+}
+
+.neu-button:hover {
+  box-shadow: 6px 6px 12px #e0e0de, 
+              -6px -6px 12px #ffffff;
+}
+
+.neu-button:active {
+  box-shadow: inset 2px 2px 5px #e0e0de, 
+              inset -2px -2px 5px #ffffff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F5F3;
+}
+::-webkit-scrollbar-thumb {
+  background: #D9D9D7;
+  border-radius: 10px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  position: relative;
+  background: #F5F5F3;
+}
+
+/* Minimal background pattern */
+.bg-grid {
+  background-image: radial-gradient(#D9D9D7 0.5px, transparent 0.5px);
+  background-size: 32px 32px;
+  opacity: 0.2;
+}
+
+/* Professional Phone Frame */
+.phone-frame {
+  position: relative;
+  width: 100%;
+  max-width: 290px;
+  aspect-ratio: 9/19.5;
+  background: #000;
+  border-radius: 48px;
+  border: 10px solid #FFFFFF;
+  box-shadow: 30px 30px 60px #e0e0de, 
+              -15px -15px 40px #ffffff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-screen {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 38px;
+}
+
+.phone-island {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85px;
+  height: 26px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 20;
+}
+
+/* Editorial Heading Styling */
+h1, h2 {
+  letter-spacing: -0.04em;
+}
