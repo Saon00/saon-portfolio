@@ -2,14 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { 
-  Github, 
-  Linkedin, 
-  Mail, 
-  Layers, 
-  ExternalLink, 
-  Menu, 
-  X, 
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Layers,
+  ExternalLink,
+  Menu,
+  X,
   MessageSquare,
   Send,
   BookOpen,
@@ -28,7 +28,7 @@ import { GoogleGenAI } from "@google/genai";
 // --- Components ---
 
 const NeumorphicCard = ({ children, className = "", inset = false, hover = true }) => (
-  <motion.div 
+  <motion.div
     whileHover={hover && !inset ? { y: -4 } : {}}
     className={`${inset ? 'neu-concave' : 'neu-convex'} rounded-[32px] ${className}`}
   >
@@ -37,7 +37,7 @@ const NeumorphicCard = ({ children, className = "", inset = false, hover = true 
 );
 
 const GlassCard = ({ children, className = "", hover = true }) => (
-  <motion.div 
+  <motion.div
     whileHover={hover ? { y: -4 } : {}}
     className={`bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl rounded-[32px] ${className}`}
   >
@@ -47,8 +47,8 @@ const GlassCard = ({ children, className = "", hover = true }) => (
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: "easeOut" }
   }
@@ -56,40 +56,40 @@ const sectionReveal = {
 
 const itemReveal = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.5 }
   }
 };
 
-const SectionHeader = ({ title, subtitle, location = "DHAKA, BD / 23.81° N" }) => (
-  <div className="mb-12 md:mb-20 relative z-20">
-    <motion.div 
+const SectionHeader = ({ title, subtitle, location = "DHAKA, BD / 23.81° N", center = false }) => (
+  <div className={`mb-12 md:mb-20 relative z-20 ${center ? 'text-center' : ''}`}>
+    <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       className="text-[10px] md:text-xs font-black tracking-[0.4em] text-appGray mb-5 uppercase"
     >
       {location}
     </motion.div>
-    <motion.h2 
+    <motion.h2
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       className="font-heading text-4xl md:text-6xl font-extrabold mb-6 text-appText leading-tight"
     >
       {title}
     </motion.h2>
-    <motion.p 
+    <motion.p
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
-      className="text-appGray max-w-2xl font-accent text-base md:text-lg leading-relaxed font-medium"
+      className={`text-appGray font-accent text-base md:text-lg leading-relaxed font-medium ${center ? 'max-w-2xl mx-auto' : 'max-w-2xl'}`}
     >
       {subtitle}
     </motion.p>
   </div>
 );
 
-const MinimalButton = ({ children, onClick = () => {}, className = "", as = "button", href = undefined, ...props }) => {
+const MinimalButton = ({ children, onClick = () => { }, className = "", as = "button", href = undefined, ...props }) => {
   const Component = as === "a" ? motion.a : motion.button;
   return (
     <Component
@@ -107,7 +107,7 @@ const MinimalButton = ({ children, onClick = () => {}, className = "", as = "but
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
@@ -115,12 +115,12 @@ const Navbar = () => {
   }, []);
 
   const links = [
-    { name: 'About', href: '#about' }, 
-    { name: 'Arsenal', href: '#skills' }, 
-    { name: 'Research', href: '#research' }, 
-    { name: 'Experience', href: '#experience' }, 
+    { name: 'About', href: '#about' },
+    { name: 'Arsenal', href: '#skills' },
+    { name: 'Research', href: '#research' },
+    { name: 'Experience', href: '#experience' },
     { name: 'Education', href: '#education' },
-    { name: 'Apps', href: '#projects' }, 
+    { name: 'Apps', href: '#projects' },
     { name: 'Academy', href: '#academy' }
   ];
 
@@ -128,7 +128,7 @@ const Navbar = () => {
     <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${scrolled ? 'bg-appBg/90 backdrop-blur-lg py-4 border-b border-appShadow/30' : 'bg-transparent py-10'}`}>
       <div className="container mx-auto px-10 flex justify-between items-center">
         <a href="#" className="font-heading text-2xl font-black tracking-tighter text-appText">SAON.</a>
-        
+
         <div className="hidden lg:flex gap-12 items-center">
           {links.map(link => (
             <a key={link.name} href={link.href} className="font-accent text-xs uppercase tracking-widest font-black text-appGray hover:text-appText transition-all">{link.name}</a>
@@ -143,7 +143,7 @@ const Navbar = () => {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -160,59 +160,59 @@ const Navbar = () => {
 };
 
 const HeroVisual = () => (
-    <div className="relative w-full h-[500px] flex items-center justify-center">
-      {/* Central Hub */}
-      <GlassCard className="relative z-20 p-8 rounded-[40px] flex items-center justify-center bg-white/40 border-white/60 shadow-2xl" hover={false}>
-          <div className="relative z-10">
-             <Smartphone size={64} className="text-appText" />
-             <div className="absolute -bottom-2 -right-2 bg-appText text-white text-[10px] font-black px-2 py-0.5 rounded-full">v3.0</div>
-          </div>
-          {/* Pulse Effect */}
-          <div className="absolute inset-0 bg-blue-100/30 rounded-[40px] animate-ping opacity-20" />
-      </GlassCard>
+  <div className="relative w-full h-[500px] flex items-center justify-center">
+    {/* Central Hub */}
+    <GlassCard className="relative z-20 p-8 rounded-[40px] flex items-center justify-center bg-white/40 border-white/60 shadow-2xl" hover={false}>
+      <div className="relative z-10">
+        <Smartphone size={64} className="text-appText" />
+        <div className="absolute -bottom-2 -right-2 bg-appText text-white text-[10px] font-black px-2 py-0.5 rounded-full">v3.0</div>
+      </div>
+      {/* Pulse Effect */}
+      <div className="absolute inset-0 bg-blue-100/30 rounded-[40px] animate-ping opacity-20" />
+    </GlassCard>
 
-      {/* Orbiting Nodes */}
-      {[
-        { i: <Cpu size={28} />, x: -160, y: -100, d: 0, c: "bg-blue-100/80 text-blue-600 border-blue-200" },
-        { i: <Database size={28} />, x: 160, y: -80, d: 1.5, c: "bg-purple-100/80 text-purple-600 border-purple-200" },
-        { i: <Code2 size={28} />, x: -120, y: 140, d: 0.8, c: "bg-green-100/80 text-green-600 border-green-200" },
-        { i: <Layers size={28} />, x: 140, y: 120, d: 2.2, c: "bg-orange-100/80 text-orange-600 border-orange-200" },
-      ].map((node, i) => (
-        <motion.div
-           key={i}
-           animate={{ y: [node.y, node.y - 20, node.y] }}
-           transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut", delay: node.d }}
-           className={`absolute z-10 p-5 rounded-2xl shadow-lg border backdrop-blur-md ${node.c}`}
-           style={{ x: node.x }} // Set X directly
-        >
-           {node.i}
-           {/* Connecting Line */}
-           <svg className="absolute top-1/2 left-1/2 -z-10 w-[400px] h-[400px] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-30 overflow-visible">
-              <line 
-                x1="200" 
-                y1="200" 
-                x2={200 - node.x} 
-                y2={200 - node.y} 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeDasharray="6 6" 
-                strokeLinecap="round"
-              />
-           </svg>
-        </motion.div>
-      ))}
+    {/* Orbiting Nodes */}
+    {[
+      { i: <Cpu size={28} />, x: -160, y: -100, d: 0, c: "bg-blue-100/80 text-blue-600 border-blue-200" },
+      { i: <Database size={28} />, x: 160, y: -80, d: 1.5, c: "bg-purple-100/80 text-purple-600 border-purple-200" },
+      { i: <Code2 size={28} />, x: -120, y: 140, d: 0.8, c: "bg-green-100/80 text-green-600 border-green-200" },
+      { i: <Layers size={28} />, x: 140, y: 120, d: 2.2, c: "bg-orange-100/80 text-orange-600 border-orange-200" },
+    ].map((node, i) => (
+      <motion.div
+        key={i}
+        animate={{ y: [node.y, node.y - 20, node.y] }}
+        transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut", delay: node.d }}
+        className={`absolute z-10 p-5 rounded-2xl shadow-lg border backdrop-blur-md ${node.c}`}
+        style={{ x: node.x }} // Set X directly
+      >
+        {node.i}
+        {/* Connecting Line */}
+        <svg className="absolute top-1/2 left-1/2 -z-10 w-[400px] h-[400px] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-30 overflow-visible">
+          <line
+            x1="200"
+            y1="200"
+            x2={200 - node.x}
+            y2={200 - node.y}
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeDasharray="6 6"
+            strokeLinecap="round"
+          />
+        </svg>
+      </motion.div>
+    ))}
 
-      {/* Decorative Blur */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full blur-3xl -z-10" />
-    </div>
+    {/* Decorative Blur */}
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full blur-3xl -z-10" />
+  </div>
 );
 
 const Hero = () => {
   const socialLinks = [
     { icon: Github, url: "https://github.com/Saon00" },
-    { icon: Linkedin, url: "https://www.linkedin.com/in/saon00" },
+    { icon: Linkedin, url: "https://www.linkedin.com/in/saon-sikder" },
     { icon: Youtube, url: "https://www.youtube.com/@BlackOsRa" },
-    { icon: Facebook, url: "https://facebook.com/saon00" },
+    { icon: Facebook, url: "https://www.facebook.com/saon.srabon/" },
     { icon: Instagram, url: "https://instagram.com/saon00" },
   ];
 
@@ -220,61 +220,61 @@ const Hero = () => {
     <section className="relative min-h-screen flex items-center pt-20 bg-appBg overflow-hidden">
       {/* grid overlay */}
       <div className="absolute inset-0 bg-grid pointer-events-none" />
-  
+
       {/* content */}
       <div className="relative container mx-auto px-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column: Text */}
-            <div className="max-w-3xl z-20">
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-xs font-black tracking-[0.5em] text-appText mb-10 uppercase"
-              >
-                DHAKA, BD / 23.81° N
-              </motion.div>
-              <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="font-heading text-6xl md:text-8xl font-black text-appText mb-8 leading-[0.9] tracking-tighter"
-              >
-                Flutter Developer & Researcher<span className="text-appShadow">.</span>
-              </motion.h1>
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-appGray text-xl md:text-2xl mb-12 leading-relaxed font-accent font-medium max-w-xl"
-              >
-                Md. Saon Sikder — Building pixel-perfect ecosystems and researching machine intelligence.
-              </motion.p>
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex flex-col sm:flex-row gap-8 items-start sm:items-center"
-              >
-                <MinimalButton className="px-10 py-5 text-base shadow-xl bg-white border border-white/50">Explore Dossier</MinimalButton>
-                <div className="flex gap-4 items-center">
-                  {socialLinks.map(({ icon: Icon, url }, i) => (
-                    <a
-                      key={i}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-3.5 rounded-full bg-white/40 border border-white/60 text-appGray hover:text-appText hover:bg-white hover:shadow-lg transition-all transform hover:scale-110"
-                    >
-                      <Icon size={20} />
-                    </a>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
+          {/* Left Column: Text */}
+          <div className="max-w-3xl z-20">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-xs font-black tracking-[0.5em] text-appText mb-10 uppercase"
+            >
+              DHAKA, BD / 23.81° N
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="font-heading text-6xl md:text-8xl font-black text-appText mb-8 leading-[0.9] tracking-tighter"
+            >
+              Flutter Developer & Researcher<span className="text-appShadow">.</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-appGray text-xl md:text-2xl mb-12 leading-relaxed font-accent font-medium max-w-xl"
+            >
+              Md. Saon Sikder — Building pixel-perfect ecosystems and researching machine intelligence.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="flex flex-col sm:flex-row gap-8 items-start sm:items-center"
+            >
+              <MinimalButton className="px-10 py-5 text-base shadow-xl bg-white border border-white/50">Explore Dossier</MinimalButton>
+              <div className="flex gap-4 items-center">
+                {socialLinks.map(({ icon: Icon, url }, i) => (
+                  <a
+                    key={i}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3.5 rounded-full bg-white/40 border border-white/60 text-appGray hover:text-appText hover:bg-white hover:shadow-lg transition-all transform hover:scale-110"
+                  >
+                    <Icon size={20} />
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </div>
 
-            {/* Right Column: Visual */}
-            <div className="hidden lg:block relative z-10">
-               <HeroVisual />
-            </div>
+          {/* Right Column: Visual */}
+          <div className="hidden lg:block relative z-10">
+            <HeroVisual />
+          </div>
         </div>
       </div>
     </section>
@@ -282,7 +282,7 @@ const Hero = () => {
 };
 
 const TechBadge = ({ name, color, icon: Icon }) => (
-  <motion.div 
+  <motion.div
     whileHover={{ scale: 1.05 }}
     className="flex items-stretch overflow-hidden rounded-lg font-bold text-xs uppercase tracking-wider shadow-sm"
   >
@@ -300,9 +300,9 @@ const About = () => (
     <div className="container mx-auto px-10">
       <div className="flex flex-col-reverse lg:flex-row gap-20 items-center">
         <div className="lg:w-1/2">
-          <SectionHeader 
-            title="Sparse Clouds" 
-            subtitle="I specialize in the convergence of Flutter's reactive UI with advanced Machine Learning models, creating apps that aren't just tools, but intelligent companions." 
+          <SectionHeader
+            title="Sparse Clouds"
+            subtitle="I specialize in the convergence of Flutter's reactive UI with advanced Machine Learning models, creating apps that aren't just tools, but intelligent companions."
           />
           <div className="grid grid-cols-2 gap-6 mt-12">
             {[
@@ -312,11 +312,11 @@ const About = () => (
               { l: "Stack", v: "Flutter Core", i: <Layers size={22} /> }
             ].map((s, i) => (
               <GlassCard key={i} className="p-6 flex items-center gap-4 hover:bg-white/80 transition-colors" hover={true}>
-                 <div className="p-3 rounded-full bg-appText/5 text-appText">{s.i}</div>
-                 <div>
-                    <div className="font-heading font-black text-appText text-lg leading-none mb-1">{s.v}</div>
-                    <div className="text-[9px] uppercase font-black text-appGray tracking-widest">{s.l}</div>
-                 </div>
+                <div className="p-3 rounded-full bg-appText/5 text-appText">{s.i}</div>
+                <div>
+                  <div className="font-heading font-black text-appText text-lg leading-none mb-1">{s.v}</div>
+                  <div className="text-[9px] uppercase font-black text-appGray tracking-widest">{s.l}</div>
+                </div>
               </GlassCard>
             ))}
 
@@ -324,16 +324,16 @@ const About = () => (
           </div>
         </div>
         <div className="lg:w-1/2 flex justify-center lg:justify-end relative">
-           <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/30 to-purple-100/30 blur-3xl rounded-full -z-10" />
-           <GlassCard className="relative p-2 w-[70%] lg:w-[80%] aspect-square rotate-3 hover:rotate-0 transition-transform duration-500">
-             <div className="w-full h-full rounded-[28px] overflow-hidden relative">
-               <img src="/images/1000016829.jpg?auto=format&fit=crop&q=80&w=600" alt="Profile" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-               <div className="absolute bottom-6 left-6 text-white">
-                 <div className="font-black text-xl tracking-widest uppercase">Saon</div>
-               </div>
-             </div> 
-           </GlassCard>           
+          <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/30 to-purple-100/30 blur-3xl rounded-full -z-10" />
+          <GlassCard className="relative p-2 w-[70%] lg:w-[80%] aspect-square rotate-3 hover:rotate-0 transition-transform duration-500">
+            <div className="w-full h-full rounded-[28px] overflow-hidden relative">
+              <img src="/images/1000016829.jpg?auto=format&fit=crop&q=80&w=600" alt="Profile" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <div className="absolute bottom-6 left-6 text-white">
+                <div className="font-black text-xl tracking-widest uppercase">Saon</div>
+              </div>
+            </div>
+          </GlassCard>
         </div>
       </div>
     </div>
@@ -351,9 +351,9 @@ const Skills = () => {
   return (
     <section id="skills" className="py-24 border-y border-appShadow/20 bg-appBg">
       <div className="container mx-auto px-10">
-        <SectionHeader 
-          title="Technical Arsenal" 
-          subtitle="A curated stack of technologies I use to architect robust, scalable digital experiences." 
+        <SectionHeader
+          title="Technical Arsenal"
+          subtitle="A curated stack of technologies I use to architect robust, scalable digital experiences."
         />
         <div className="flex flex-wrap gap-6 justify-center max-w-5xl mx-auto">
           {techs.map((tech, i) => (
@@ -369,27 +369,27 @@ const Skills = () => {
 
 const Research = () => {
   const papers = [
-    { 
-      title: "Comparative Evaluation of Machine Learning and Hybrid Models for Stock Price Forecasting: A Case Study on Grameenphone Ltd. in Bangladesh’s Emerging Market", 
-      journal: "2025 IEEE 4th International Conference (RAAICON)", 
-      year: "2025", 
-      desc: "" ,
-      
+    {
+      title: "Comparative Evaluation of Machine Learning and Hybrid Models for Stock Price Forecasting: A Case Study on Grameenphone Ltd. in Bangladesh’s Emerging Market",
+      journal: "2025 IEEE 4th International Conference (RAAICON)",
+      year: "2025",
+      desc: "",
+
     },
-    { 
-      title: "Improving mango ripeness grading accuracy: A comprehensive analysis of deep learning, traditional machine learning, and transfer learning techniques", 
-      journal: "Machine Learning with Applications", 
-      year: "2025", 
+    {
+      title: "Improving mango ripeness grading accuracy: A comprehensive analysis of deep learning, traditional machine learning, and transfer learning techniques",
+      journal: "Machine Learning with Applications",
+      year: "2025",
       desc: ""
     }
   ];
   return (
-    <motion.section 
-      id="research" 
-      initial="hidden" 
-      whileInView="visible" 
-      viewport={{ once: true, amount: 0.2 }} 
-      variants={sectionReveal} 
+    <motion.section
+      id="research"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={sectionReveal}
       className="py-24 bg-appBg relative z-20"
     >
       <div className="container mx-auto px-6">
@@ -417,16 +417,16 @@ const Research = () => {
 
 const Experience = () => {
   const items = [
-    { role: "Junior Flutter Developer", company: "SM Technology", date: "Aug 2025 - Present", desc: "Developing and maintaining cross-platform mobile applications using Flutter, focusing on clean UI, performance optimization, and scalable code architecture." },
+    { role: "Junior Flutter Developer", company: "RazinSoft", date: "May 2026 - Present", desc: "Developing mobile applications using Flutter and Riverpod for state management, focusing on clean architecture and gaining deeper insights into Flutter development." },
+    { role: "Junior Flutter Developer", company: "SM Technology", date: "Aug 2025 - Apr 2026", desc: "Developing and maintaining cross-platform mobile applications using Flutter, focusing on clean UI, performance optimization, and scalable code architecture." },
     { role: "Research Assistant", company: "Department of Computer Science and Engineering, Faridpur Engineering College", date: "Part-time", desc: "Assisting in academic research, data analysis, and technical documentation, with a focus on software systems and emerging computing technologies." },
     { role: "Python Programming Trainer", company: "ICT Division", date: "Oct 2023 - Mar 2024", desc: "A government initiative to train high school students in Python programming. About 180 students were trained from Salauddin Ahmed High School & Shamsul Hoque Khan School & College" },
     { role: "Intern Flutter Developer", company: "Isbah IT", date: "Aug 2023- Oct 2023", desc: "Developing and maintaining cross-platform mobile applications using Flutter, focusing on clean UI, performance optimization, and scalable code architecture." },
-    
   ];
 
   return (
-    <motion.section 
-      id="experience" 
+    <motion.section
+      id="experience"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
@@ -435,22 +435,22 @@ const Experience = () => {
     >
       <div className="container mx-auto px-6">
         <SectionHeader title="Professional Path" subtitle="A timeline of engineering excellence and scientific discovery." />
-        
+
         <div className="max-w-6xl mx-auto relative px-4">
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-appText/10 -translate-x-1/2 hidden lg:block" />
-          
+
           <div className="space-y-24 md:space-y-32">
             {items.map((item, i) => (
               <div key={i} className="relative">
                 <div className="absolute left-[-20px] lg:left-1/2 top-0 w-6 h-6 rounded-full bg-appText border-8 border-appBg lg:-translate-x-1/2 shadow-xl z-10" />
-                
+
                 <div className={`flex flex-col lg:flex-row items-start ${i % 2 === 0 ? 'lg:justify-start' : 'lg:justify-end'}`}>
                   <div className={`w-full lg:w-[46%] ${i % 2 === 0 ? 'lg:text-right lg:pr-16' : 'lg:text-left lg:pl-16'}`}>
                     <motion.div variants={itemReveal}>
                       <div className="text-appText/60 font-heading font-black text-sm mb-4 tracking-[0.3em] uppercase">{item.date}</div>
                       <h4 className="font-heading text-2xl md:text-3xl font-black mb-2 text-appText">{item.role}</h4>
                       <div className="text-appGray font-bold mb-8 text-lg">{item.company}</div>
-                      
+
                       <GlassCard className="p-8 text-left">
                         <p className="text-appGray text-base md:text-lg font-accent leading-relaxed">
                           {item.desc}
@@ -475,8 +475,8 @@ const Education = () => {
   ];
 
   return (
-    <motion.section 
-      id="education" 
+    <motion.section
+      id="education"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
@@ -485,23 +485,23 @@ const Education = () => {
     >
       <div className="container mx-auto px-6">
         <SectionHeader title="Academic Foundation" subtitle="The theoretical groundwork powering practical innovation." />
-        
+
         <div className="max-w-4xl mx-auto grid gap-12">
           {items.map((item, i) => (
-             <GlassCard key={i} className="p-10 flex flex-col md:flex-row gap-10 items-start">
-                <div className="min-w-[120px]">
-                   <div className="text-5xl font-black text-appText/10 font-heading">{'0' + (i + 1)}</div>
+            <GlassCard key={i} className="p-10 flex flex-col md:flex-row gap-10 items-start">
+              <div className="min-w-[120px]">
+                <div className="text-5xl font-black text-appText/10 font-heading">{'0' + (i + 1)}</div>
+              </div>
+              <div>
+                <div className="flex flex-col md:flex-row md:items-center gap-4 mb-4">
+                  <h4 className="font-heading text-2xl font-black text-appText">{item.school}</h4>
+                  <span className="hidden md:block text-appGray/30">•</span>
+                  <span className="text-xs font-black uppercase tracking-widest text-appText/60 bg-appText/5 px-3 py-1 rounded">{item.date}</span>
                 </div>
-                <div>
-                   <div className="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-                      <h4 className="font-heading text-2xl font-black text-appText">{item.school}</h4>
-                      <span className="hidden md:block text-appGray/30">•</span>
-                      <span className="text-xs font-black uppercase tracking-widest text-appText/60 bg-appText/5 px-3 py-1 rounded">{item.date}</span>
-                   </div>
-                   <div className="text-lg font-bold text-appGray mb-4">{item.degree}</div>
-                   <p className="text-appGray/80 font-accent leading-relaxed">{item.desc}</p>
-                </div>
-             </GlassCard>
+                <div className="text-lg font-bold text-appGray mb-4">{item.degree}</div>
+                <p className="text-appGray/80 font-accent leading-relaxed">{item.desc}</p>
+              </div>
+            </GlassCard>
           ))}
         </div>
       </div>
@@ -510,44 +510,181 @@ const Education = () => {
 };
 
 const Projects = () => {
+  const [selectedApp, setSelectedApp] = useState(null);
+
   const apps = [
-    { title: "Mind Twin", d: "ML shopping engine.", img: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=600" },
-    { title: "SpanX", d: "On-device analysis.", img: "https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&q=80&w=600" },
-    { title: "Devyn", d: "Crypto Tracker.", img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&q=80&w=600" },
-    { title: "ChopTop", d: "AI Text Summarizer.", img: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=600" },
-     { title: "The Carribean Note", d: "Object Detection.", img: "public/images/cara.png" }
+    {
+      title: "Mind Twin",
+      d: "ML shopping engine.",
+      img: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=600",
+      description: "An intelligent shopping assistant that uses advanced machine learning to analyze user preferences and predict retail trends. Mind Twin models user behavior on-device to recommend personalized deals and optimize budget allocations.",
+      tech: ["Flutter", "TensorFlow Lite", "Dart", "Firebase", "Python"],
+      features: ["On-device personalization", "Predictive budget optimization", "Semantic product search"]
+    },
+    {
+      title: "SpanX",
+      d: "On-device analysis.",
+      img: "https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&q=80&w=600",
+      description: "A high-performance analytical tool designed to run complex neural network inferences locally on mobile hardware. SpanX processes raw telemetry and sensor data in real-time without sending sensitive user information to the cloud.",
+      tech: ["Flutter", "Dart", "PyTorch Mobile", "SQLite", "OpenCV"],
+      features: ["Real-time telemetry analysis", "Zero-latency local inference", "Privacy-first architecture"]
+    },
+    {
+      title: "Devyn",
+      d: "Crypto Tracker.",
+      img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&q=80&w=600",
+      description: "A sleek, responsive cryptocurrency portfolio tracking application featuring high-frequency price updates, automated transaction syncing, and interactive historical charts.",
+      tech: ["Flutter", "Dart", "Supabase", "CoinGecko API", "Framer Motion"],
+      features: ["Automated portfolio valuation", "Custom price threshold alerts", "Interactive multi-timeframe charts"]
+    },
+    {
+      title: "ChopTop",
+      d: "AI Text Summarizer.",
+      img: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=600",
+      description: "A modern utility that condenses long articles, documents, and transcripts into key bullet points and action items using state-of-the-art Natural Language Processing (NLP).",
+      tech: ["Flutter", "Dart", "Google Gemini API", "Node.js"],
+      features: ["Multi-document summarization", "Tone and style personalization", "One-click export options"]
+    },
+    {
+      title: "The Carribean Note",
+      d: "Object Detection.",
+      img: "public/images/cara.png",
+      description: "An innovative digital scanning app featuring live object detection, OCR capabilities, and custom metadata tagging to organize field notes and scientific observations dynamically.",
+      tech: ["Flutter", "Dart", "YOLOv8 Mobile", "Hive DB"],
+      features: ["High-speed object recognition", "Offline OCR & text extraction", "Geotagged observation folders"]
+    }
   ];
 
   return (
     <section id="projects" className="py-24 overflow-hidden bg-appBg">
-      <div className="container mx-auto px-10 mb-16 text-center">
-        <SectionHeader title="Featured Apps" subtitle="High-end smartphone mockups demonstrating research-backed motion and intelligent UI." />
+      <div className="container mx-auto px-10 mb-16">
+        <SectionHeader
+          title="Featured Apps"
+          subtitle="High-end smartphone mockups demonstrating research-backed motion and intelligent UI."
+          center={true}
+        />
       </div>
-      
+
       <div className="relative w-full">
-         <div className="flex gap-20 w-max animate-infinite-scroll">
-            {[...apps, ...apps, ...apps].map((app, i) => (
-              <div 
-                key={i} 
-                className="flex flex-col items-center group cursor-pointer w-[300px] flex-shrink-0"
-              >
-                <div className="phone-frame mb-8 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
-                  <div className="phone-island" />
-                  <div className="phone-screen bg-black">
-                    <img src={app.img} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt={app.title} />
-                  </div>
-                </div>
-                <div className="text-center">
-                  <h4 className="font-heading text-2xl font-black mb-2 text-appText">{app.title}</h4>
-                  <p className="text-appGray text-xs font-accent font-bold uppercase tracking-wider">{app.d}</p>
+        <div className="flex gap-20 w-max animate-infinite-scroll">
+          {[...apps, ...apps, ...apps].map((app, i) => (
+            <div
+              key={i}
+              className="flex flex-col items-center group cursor-pointer w-[300px] flex-shrink-0"
+              onClick={() => setSelectedApp(app)}
+            >
+              <div className="phone-frame mb-8 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
+                <div className="phone-island" />
+                <div className="phone-screen bg-black">
+                  <img src={app.img} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt={app.title} />
                 </div>
               </div>
-            ))}
-         </div>
-         {/* Gradients for smooth fade */}
-         <div className="absolute top-0 left-0 h-full w-32 bg-gradient-to-r from-appBg to-transparent z-10" />
-         <div className="absolute top-0 right-0 h-full w-32 bg-gradient-to-l from-appBg to-transparent z-10" />
+              <div className="text-center">
+                <h4 className="font-heading text-2xl font-black mb-2 text-appText">{app.title}</h4>
+                <p className="text-appGray text-xs font-accent font-bold uppercase tracking-wider">{app.d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Gradients for smooth fade */}
+        <div className="absolute top-0 left-0 h-full w-32 bg-gradient-to-r from-appBg to-transparent z-10" />
+        <div className="absolute top-0 right-0 h-full w-32 bg-gradient-to-l from-appBg to-transparent z-10" />
       </div>
+
+      {/* App Details Modal */}
+      <AnimatePresence>
+        {selectedApp && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-10 bg-black/55 backdrop-blur-md"
+            onClick={() => setSelectedApp(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.93, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.93, y: 30 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="relative w-full max-w-4xl bg-[#F5F5F3] border border-white/60 shadow-2xl rounded-[40px] overflow-hidden max-h-[90vh] md:max-h-[85vh] flex flex-col md:flex-row"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedApp(null)}
+                className="absolute top-6 right-6 z-50 p-3 rounded-full bg-white/80 hover:bg-white border border-white/40 shadow-md transition-all hover:scale-110 text-appGray hover:text-appText"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Left Side: Mockup Image inside a styled frame */}
+              <div className="w-full md:w-1/2 p-8 md:p-12 flex items-center justify-center bg-white/40 border-r border-white/30 flex-shrink-0 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/10 to-purple-100/10 -z-10" />
+                <div className="phone-frame w-[180px] shadow-2xl relative select-none">
+                  <div className="phone-island" />
+                  <div className="phone-screen bg-black">
+                    <img
+                      src={selectedApp.img}
+                      className="w-full h-full object-cover"
+                      alt={selectedApp.title}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side: Details */}
+              <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto flex flex-col justify-between max-h-[50vh] md:max-h-none">
+                <div>
+                  <span className="text-[10px] font-black tracking-[0.3em] text-appGray uppercase">Featured Application</span>
+                  <h3 className="font-heading text-3xl md:text-4xl font-black text-appText mt-3 mb-5 leading-tight">
+                    {selectedApp.title}
+                  </h3>
+
+                  {/* Tech stack badges */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {selectedApp.tech?.map((t, idx) => (
+                      <span key={idx} className="px-3 py-1.5 bg-white border border-white/60 text-appText text-[9px] font-black uppercase rounded-lg tracking-widest shadow-sm">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="text-appGray font-accent text-sm md:text-base leading-relaxed mb-6 font-medium">
+                    {selectedApp.description}
+                  </p>
+
+                  {/* Features List */}
+                  {selectedApp.features && (
+                    <div className="mb-8">
+                      <h5 className="text-[10px] font-black uppercase tracking-widest text-appText mb-4">Key Capabilities</h5>
+                      <ul className="space-y-3">
+                        {selectedApp.features.map((f, idx) => (
+                          <li key={idx} className="flex items-center gap-3 text-xs md:text-sm text-appGray font-accent font-semibold">
+                            <span className="w-1.5 h-1.5 rounded-full bg-appText shrink-0 shadow-sm" />
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex gap-4 pt-6 border-t border-white/40">
+                  <MinimalButton className="flex-1 py-4 text-xs justify-center shadow-lg bg-white border border-white/60">
+                    Explore Repository <ExternalLink size={14} />
+                  </MinimalButton>
+                  <button
+                    onClick={() => setSelectedApp(null)}
+                    className="px-6 py-4 border border-appText/10 text-appText hover:bg-appText/5 text-xs font-heading font-black rounded-full transition-all tracking-wider uppercase"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
@@ -562,68 +699,68 @@ const Academy = () => (
             <MinimalButton as="a" href="https://www.youtube.com/@BlackOsRa" target="_blank" rel="noopener noreferrer" className="justify-center py-6 text-base shadow-xl">
               <Youtube size={24} /> Subscribe to Channel
             </MinimalButton>
-           <div className="grid grid-cols-2 gap-6">
-  <a
-    href="https://facebook.com/blackosra"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="neu-button p-6 rounded-3xl flex flex-col items-center gap-4 transition-all hover:scale-105"
-  >
-    <Facebook className="text-blue-600" size={32} />
-    <span className="font-black text-[10px] tracking-widest uppercase text-appGray">
-      COMMUNITY
-    </span>
-  </a>
+            <div className="grid grid-cols-2 gap-6">
+              <a
+                href="https://facebook.com/blackosra"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="neu-button p-6 rounded-3xl flex flex-col items-center gap-4 transition-all hover:scale-105"
+              >
+                <Facebook className="text-blue-600" size={32} />
+                <span className="font-black text-[10px] tracking-widest uppercase text-appGray">
+                  COMMUNITY
+                </span>
+              </a>
 
-  <a
-    href="https://instagram.com/blackosra"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="neu-button p-6 rounded-3xl flex flex-col items-center gap-4 transition-all hover:scale-105"
-  >
-    <Instagram className="text-pink-600" size={32} />
-    <span className="font-black text-[10px] tracking-widest uppercase text-appGray">
-      UPDATES
-    </span>
-  </a>
-</div>
+              <a
+                href="https://instagram.com/blackosra"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="neu-button p-6 rounded-3xl flex flex-col items-center gap-4 transition-all hover:scale-105"
+              >
+                <Instagram className="text-pink-600" size={32} />
+                <span className="font-black text-[10px] tracking-widest uppercase text-appGray">
+                  UPDATES
+                </span>
+              </a>
+            </div>
           </div>
         </div>
         <div className="lg:col-span-7">
-         <NeumorphicCard className="aspect-video p-2" hover={false}>
-  <a
-    href="https://youtu.be/FF2UcqjOGrU"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-full h-full rounded-[28px] overflow-hidden relative group cursor-pointer block"
-  >
-    {/* Thumbnail */}
-    <img
-      src="https://img.youtube.com/vi/FF2UcqjOGrU/maxresdefault.jpg"
-      alt="Advanced BLoC Patterns"
-      className="w-full h-full object-cover"
-    />
+          <NeumorphicCard className="aspect-video p-2" hover={false}>
+            <a
+              href="https://youtu.be/FF2UcqjOGrU"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full h-full rounded-[28px] overflow-hidden relative group cursor-pointer block"
+            >
+              {/* Thumbnail */}
+              <img
+                src="https://img.youtube.com/vi/FF2UcqjOGrU/maxresdefault.jpg"
+                alt="Advanced BLoC Patterns"
+                className="w-full h-full object-cover"
+              />
 
-    {/* Overlay */}
-    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
 
-    {/* Play icon */}
-    <Play
-      size={80}
-      className="absolute inset-0 m-auto text-white opacity-80 group-hover:scale-110 transition-transform z-20"
-    />
+              {/* Play icon */}
+              <Play
+                size={80}
+                className="absolute inset-0 m-auto text-white opacity-80 group-hover:scale-110 transition-transform z-20"
+              />
 
-    {/* Text */}
-    <div className="absolute bottom-12 left-12 z-20 text-left">
-      <div className="text-[10px] font-black uppercase text-appShadow tracking-[0.4em] mb-3">
-        Featured Tutorial
-      </div>
-      <div className="text-white font-heading text-2xl font-black">
-        পাইথন বাংলা টিউটোরিয়াল - Python Tutorial for Beginners (Bangla) - Full Course
-      </div>
-    </div>
-  </a>
-</NeumorphicCard>
+              {/* Text */}
+              <div className="absolute bottom-12 left-12 z-20 text-left">
+                <div className="text-[10px] font-black uppercase text-appShadow tracking-[0.4em] mb-3">
+                  Featured Tutorial
+                </div>
+                <div className="text-white font-heading text-2xl font-black">
+                  পাইথন বাংলা টিউটোরিয়াল - Python Tutorial for Beginners (Bangla) - Full Course
+                </div>
+              </div>
+            </a>
+          </NeumorphicCard>
 
         </div>
       </div>
@@ -702,8 +839,8 @@ const AIAssistant = () => {
             <NeumorphicCard className="h-[600px] flex flex-col p-8 border border-appShadow/40" hover={false}>
               <div className="flex justify-between items-center mb-8 pb-5 border-b border-appShadow/40">
                 <div className="flex items-center gap-4">
-                   <div className="w-3 h-3 rounded-full bg-appText animate-pulse shadow-lg" />
-                   <span className="text-[11px] font-black uppercase tracking-[0.4em] text-appGray">Liaison Alpha-1</span>
+                  <div className="w-3 h-3 rounded-full bg-appText animate-pulse shadow-lg" />
+                  <span className="text-[11px] font-black uppercase tracking-[0.4em] text-appGray">Liaison Alpha-1</span>
                 </div>
                 <button onClick={() => setIsOpen(false)} className="text-appGray hover:text-appText transition-colors"><X size={26} /></button>
               </div>
@@ -723,10 +860,10 @@ const AIAssistant = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <motion.button 
-        whileHover={{ scale: 1.1 }} 
-        whileTap={{ scale: 0.9 }} 
-        onClick={() => setIsOpen(!isOpen)} 
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setIsOpen(!isOpen)}
         className="w-20 h-20 rounded-full neu-button flex items-center justify-center z-[120]"
       >
         <MessageSquare size={36} />
