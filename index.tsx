@@ -21,7 +21,9 @@ import {
   Smartphone,
   Cpu,
   Database,
-  Code2
+  Code2,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 
@@ -39,7 +41,7 @@ const NeumorphicCard = ({ children, className = "", inset = false, hover = true 
 const GlassCard = ({ children, className = "", hover = true }) => (
   <motion.div
     whileHover={hover ? { y: -4 } : {}}
-    className={`bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl rounded-[32px] ${className}`}
+    className={`bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] shadow-xl rounded-[32px] ${className}`}
   >
     {children}
   </motion.div>
@@ -104,6 +106,42 @@ const MinimalButton = ({ children, onClick = () => { }, className = "", as = "bu
   );
 };
 
+const ThemeToggle = ({ className = "" }: { className?: string }) => {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (prefersDark ? 'dark' : 'light');
+    
+    setTheme(initial);
+    document.documentElement.classList.toggle('dark', initial === 'dark');
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    localStorage.setItem('theme', newTheme);
+  };
+
+  return (
+    <button
+      onClick={toggleTheme}
+      className={`p-3 rounded-full neu-button text-appText hover:text-appText transition-all ${className}`}
+      aria-label="Toggle dark mode"
+    >
+      <motion.div
+        initial={false}
+        animate={{ rotate: theme === 'dark' ? 180 : 0 }}
+        transition={{ type: "spring", stiffness: 200, damping: 15 }}
+      >
+        {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+      </motion.div>
+    </button>
+  );
+};
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -133,6 +171,7 @@ const Navbar = () => {
           {links.map(link => (
             <a key={link.name} href={link.href} className="font-accent text-xs uppercase tracking-widest font-black text-appGray hover:text-appText transition-all">{link.name}</a>
           ))}
+          <ThemeToggle />
           <MinimalButton className="py-2.5 px-6 text-xs">Resume</MinimalButton>
         </div>
 
@@ -152,6 +191,12 @@ const Navbar = () => {
             {links.map(link => (
               <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="font-heading text-4xl font-extrabold text-appText">{link.name}</a>
             ))}
+            <div className="pt-6 border-t border-appShadow/30">
+              <div className="flex items-center gap-4">
+                <span className="text-appGray text-sm font-black uppercase tracking-widest">Theme</span>
+                <ThemeToggle />
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -162,7 +207,7 @@ const Navbar = () => {
 const HeroVisual = () => (
   <div className="relative w-full h-[500px] flex items-center justify-center">
     {/* Central Hub */}
-    <GlassCard className="relative z-20 p-8 rounded-[40px] flex items-center justify-center bg-white/40 border-white/60 shadow-2xl" hover={false}>
+    <GlassCard className="relative z-20 p-8 rounded-[40px] flex items-center justify-center bg-[var(--glass-bg)] border-[var(--glass-border)] shadow-2xl" hover={false}>
       <div className="relative z-10">
         <Smartphone size={64} className="text-appText" />
         <div className="absolute -bottom-2 -right-2 bg-appText text-white text-[10px] font-black px-2 py-0.5 rounded-full">v3.0</div>
@@ -254,7 +299,7 @@ const Hero = () => {
               transition={{ delay: 0.2 }}
               className="flex flex-col sm:flex-row gap-8 items-start sm:items-center"
             >
-              <MinimalButton className="px-10 py-5 text-base shadow-xl bg-white border border-white/50">Explore Dossier</MinimalButton>
+              <MinimalButton className="px-10 py-5 text-base shadow-xl bg-appBg border border-appShadow/50">Explore Dossier</MinimalButton>
               <div className="flex gap-4 items-center">
                 {socialLinks.map(({ icon: Icon, url }, i) => (
                   <a
@@ -262,7 +307,7 @@ const Hero = () => {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3.5 rounded-full bg-white/40 border border-white/60 text-appGray hover:text-appText hover:bg-white hover:shadow-lg transition-all transform hover:scale-110"
+                    className="p-3.5 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] text-appGray hover:text-appText hover:bg-appBg hover:shadow-lg transition-all transform hover:scale-110"
                   >
                     <Icon size={20} />
                   </a>
@@ -289,7 +334,7 @@ const TechBadge = ({ name, color, icon: Icon }) => (
     <div className={`flex items-center justify-center px-3 py-2 text-white ${color}`}>
       {Icon ? <Icon size={16} /> : name[0]}
     </div>
-    <div className="bg-white/80 backdrop-blur-sm px-4 py-2 flex items-center text-appText border-y border-r border-gray-100 rounded-r-lg">
+    <div className="bg-appBg/80 backdrop-blur-sm px-4 py-2 flex items-center text-appText border-y border-r border-appShadow/30 rounded-r-lg">
       {name}
     </div>
   </motion.div>
@@ -311,7 +356,7 @@ const About = () => (
               { l: "Academy", v: "5k+ Devs", i: <Youtube size={22} /> },
               { l: "Stack", v: "Flutter Core", i: <Layers size={22} /> }
             ].map((s, i) => (
-              <GlassCard key={i} className="p-6 flex items-center gap-4 hover:bg-white/80 transition-colors" hover={true}>
+              <GlassCard key={i} className="p-6 flex items-center gap-4 hover:bg-appBg/80 transition-colors" hover={true}>
                 <div className="p-3 rounded-full bg-appText/5 text-appText">{s.i}</div>
                 <div>
                   <div className="font-heading font-black text-appText text-lg leading-none mb-1">{s.v}</div>
@@ -357,7 +402,7 @@ const Skills = () => {
         />
         <div className="flex flex-wrap gap-6 justify-center max-w-5xl mx-auto">
           {techs.map((tech, i) => (
-            <GlassCard key={i} className="px-8 py-4 flex items-center justify-center text-center hover:bg-white/80 transition-all cursor-default" hover={true}>
+            <GlassCard key={i} className="px-8 py-4 flex items-center justify-center text-center hover:bg-appBg/80 transition-all cursor-default" hover={true}>
               <span className="font-heading font-black text-appText text-sm uppercase tracking-widest">{tech}</span>
             </GlassCard>
           ))}
@@ -606,19 +651,19 @@ const Projects = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.93, y: 30 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="relative w-full max-w-4xl bg-[#F5F5F3] border border-white/60 shadow-2xl rounded-[40px] overflow-hidden max-h-[90vh] md:max-h-[85vh] flex flex-col md:flex-row"
+              className="relative w-full max-w-4xl bg-appBg border border-appShadow/60 shadow-2xl rounded-[40px] overflow-hidden max-h-[90vh] md:max-h-[85vh] flex flex-col md:flex-row modal-surface"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedApp(null)}
-                className="absolute top-6 right-6 z-50 p-3 rounded-full bg-white/80 hover:bg-white border border-white/40 shadow-md transition-all hover:scale-110 text-appGray hover:text-appText"
+                className="absolute top-6 right-6 z-50 p-3 rounded-full bg-appBg/80 hover:bg-appBg border border-appShadow/40 shadow-md transition-all hover:scale-110 text-appGray hover:text-appText"
               >
                 <X size={20} />
               </button>
 
               {/* Left Side: Mockup Image inside a styled frame */}
-              <div className="w-full md:w-1/2 p-8 md:p-12 flex items-center justify-center bg-white/40 border-r border-white/30 flex-shrink-0 relative overflow-hidden">
+              <div className="w-full md:w-1/2 p-8 md:p-12 flex items-center justify-center bg-appBg/40 border-r border-appShadow/30 flex-shrink-0 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/10 to-purple-100/10 -z-10" />
                 <div className="phone-frame w-[180px] shadow-2xl relative select-none">
                   <div className="phone-island" />
@@ -643,7 +688,7 @@ const Projects = () => {
                   {/* Tech stack badges */}
                   <div className="flex flex-wrap gap-2 mb-6">
                     {selectedApp.tech?.map((t, idx) => (
-                      <span key={idx} className="px-3 py-1.5 bg-white border border-white/60 text-appText text-[9px] font-black uppercase rounded-lg tracking-widest shadow-sm">
+                      <span key={idx} className="px-3 py-1.5 bg-appBg border border-appShadow/60 text-appText text-[9px] font-black uppercase rounded-lg tracking-widest shadow-sm">
                         {t}
                       </span>
                     ))}
@@ -669,8 +714,8 @@ const Projects = () => {
                   )}
                 </div>
 
-                <div className="flex gap-4 pt-6 border-t border-white/40">
-                  <MinimalButton className="flex-1 py-4 text-xs justify-center shadow-lg bg-white border border-white/60">
+                <div className="flex gap-4 pt-6 border-t border-appShadow/40">
+                  <MinimalButton className="flex-1 py-4 text-xs justify-center shadow-lg bg-appBg border border-appShadow/60">
                     Explore Repository <ExternalLink size={14} />
                   </MinimalButton>
                   <button
@@ -877,6 +922,11 @@ const App = () => {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
   return (
     <div className="min-h-screen">
+      {/* Theme-aware scroll progress bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] bg-appText/70 z-[200] origin-left"
+        style={{ scaleX }}
+      />
       <Navbar />
       <Hero />
       <About />

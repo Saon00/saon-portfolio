@@ -27,14 +27,15 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            appBg: '#F5F5F3',
-            appText: '#000000',
-            appGray: '#404040',
-            appShadow: '#D9D9D7',
-            appHighlight: '#FFFFFF',
+            appBg: 'var(--bg)',
+            appText: 'var(--text)',
+            appGray: 'var(--gray)',
+            appShadow: 'var(--shadow)',
+            appHighlight: 'var(--highlight)',
           },
           fontFamily: {
             heading: ['Plus Jakarta Sans', 'sans-serif'],
