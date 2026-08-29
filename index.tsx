@@ -415,17 +415,18 @@ const Skills = () => {
 const Research = () => {
   const papers = [
     {
-      title: "Comparative Evaluation of Machine Learning and Hybrid Models for Stock Price Forecasting: A Case Study on Grameenphone Ltd. in Bangladesh’s Emerging Market",
+      title: "Comparative Evaluation of Machine Learning and Hybrid Models for Stock Price Forecasting: A Case Study on Grameenphone Ltd. in Bangladesh's Emerging Market",
       journal: "2025 IEEE 4th International Conference (RAAICON)",
       year: "2025",
       desc: "",
-
+      doi: "https://doi.org/10.1109/RAAICON69033.2025.11502477"
     },
     {
       title: "Improving mango ripeness grading accuracy: A comprehensive analysis of deep learning, traditional machine learning, and transfer learning techniques",
       journal: "Machine Learning with Applications",
       year: "2025",
-      desc: ""
+      desc: "",
+      doi: "https://doi.org/10.1016/j.mlwa.2025.100619"
     }
   ];
   return (
@@ -449,7 +450,7 @@ const Research = () => {
               <div className="text-[11px] font-black text-appGray mb-3 tracking-[0.2em] uppercase">{p.journal}</div>
               <h4 className="font-heading text-xl md:text-2xl font-black mb-6 leading-snug text-appText">{p.title}</h4>
               <p className="text-appGray text-sm md:text-base leading-relaxed mb-8 font-accent">{p.desc}</p>
-              <MinimalButton className="px-6 py-3 text-xs bg-transparent shadow-none border border-appText/10 hover:bg-appText/5">
+              <MinimalButton as="a" href={p.doi} target="_blank" rel="noopener noreferrer" className="px-6 py-3 text-xs bg-transparent shadow-none border border-appText/10 hover:bg-appText/5">
                 Access Publication <ExternalLink size={16} />
               </MinimalButton>
             </GlassCard>
@@ -462,11 +463,36 @@ const Research = () => {
 
 const Experience = () => {
   const items = [
-    { role: "Junior Flutter Developer", company: "RazinSoft", date: "May 2026 - Present", desc: "Developing mobile applications using Flutter and Riverpod for state management, focusing on clean architecture and gaining deeper insights into Flutter development." },
-    { role: "Junior Flutter Developer", company: "SM Technology", date: "Aug 2025 - Apr 2026", desc: "Developing and maintaining cross-platform mobile applications using Flutter, focusing on clean UI, performance optimization, and scalable code architecture." },
-    { role: "Research Assistant", company: "Department of Computer Science and Engineering, Faridpur Engineering College", date: "Part-time", desc: "Assisting in academic research, data analysis, and technical documentation, with a focus on software systems and emerging computing technologies." },
-    { role: "Python Programming Trainer", company: "ICT Division", date: "Oct 2023 - Mar 2024", desc: "A government initiative to train high school students in Python programming. About 180 students were trained from Salauddin Ahmed High School & Shamsul Hoque Khan School & College" },
-    { role: "Intern Flutter Developer", company: "Isbah IT", date: "Aug 2023- Oct 2023", desc: "Developing and maintaining cross-platform mobile applications using Flutter, focusing on clean UI, performance optimization, and scalable code architecture." },
+    {
+      role: "Junior Flutter Developer",
+      company: "RazinSoft",
+      date: "May 2026 – Jun 2026",
+      desc: "Legacy Optimization: Collaborated with senior engineers to maintain and upgrade a large, legacy codebase. State Management: Utilized Riverpod to manage application state and streamline complex food delivery workflows. Team Integration: Worked closely with cross-functional teams to debug, refactor, and deliver features in a fast-paced environment."
+    },
+    {
+      role: "Junior Flutter Developer",
+      company: "SM Technology",
+      date: "Aug 2025 – Apr 2026",
+      desc: "Figma to Code: Converted complex Figma designs into pixel-perfect, high-performance Android and iOS apps. Advanced Integration: Implemented REST APIs, WebSockets, Google Maps, and secure in-app purchases. App Publishing: Managed full deployment cycles to successfully launch apps on Google Play and Apple App Store. Collaboration: Partnered with backend and UI/UX teams to deliver scalable, production-ready solutions."
+    },
+    {
+      role: "Research Assistant",
+      company: "Department of Computer Science and Engineering, Faridpur Engineering College",
+      date: "Part-time",
+      desc: "Assisting in academic research, data analysis, and technical documentation, with a focus on software systems and emerging computing technologies."
+    },
+    {
+      role: "Python Programming Language Trainer, ICT Division",
+      company: "ICT Division",
+      date: "Nov 2023 – Mar 2024",
+      desc: "National Project: Represented the ICT Division in the \"Sheikh Rasel School of Future\" national initiative. Technical Training: Delivered Python, problem-solving, and practical coding training to 180+ students. Institutional Deployment: Spearheaded training programs across key government institutions, including Shamsul Hoque Khan School and College."
+    },
+    {
+      role: "Intern Flutter Developer",
+      company: "IsbahIT",
+      date: "Aug 2023 – Oct 2023",
+      desc: "Feature Development: Expanded existing software functionality by designing and implementing new screens and features. App Engineering: Developed a standalone Office Management mobile application from scratch using Flutter. Local Storage: Integrated a local database solution to ensure efficient, offline-first data management."
+    },
   ];
 
   return (
@@ -559,44 +585,70 @@ const Projects = () => {
 
   const apps = [
     {
-      title: "Mind Twin",
-      d: "ML shopping engine.",
-      img: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=600",
-      description: "An intelligent shopping assistant that uses advanced machine learning to analyze user preferences and predict retail trends. Mind Twin models user behavior on-device to recommend personalized deals and optimize budget allocations.",
-      tech: ["Flutter", "TensorFlow Lite", "Dart", "Firebase", "Python"],
-      features: ["On-device personalization", "Predictive budget optimization", "Semantic product search"]
+      title: "Flyd",
+      d: "Smart Carpooling.",
+      img: "/images/flyd.png",
+      storeUrl: "https://play.google.com/store/apps/details?id=com.flyd.app",
+      appStoreUrl: "https://apps.apple.com/us/app/flyd/id6774751667",
+      description: "Flyd is an eco-intelligent carpooling platform that pairs riders and drivers sharing the same route — with 0% commission for drivers and real-time carbon savings tracking. Every shared journey contributes to a greener city.",
+      tech: ["Flutter", "Dart", "Firebase", "Google Maps", "REST APIs", "WebSocket"],
+      features: [
+        "Route-based ride matching with flexible schedules",
+        "0% driver commission — keep 100% of earnings",
+        "Carbon savings & eco-credits tracking",
+        "Woman Mode for safe, gender-matched rides",
+        "In-app encrypted chat — no number sharing",
+        "Verified profiles, ratings & real-time trip tracking"
+      ]
     },
     {
-      title: "SpanX",
-      d: "On-device analysis.",
-      img: "https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&q=80&w=600",
-      description: "A high-performance analytical tool designed to run complex neural network inferences locally on mobile hardware. SpanX processes raw telemetry and sensor data in real-time without sending sensitive user information to the cloud.",
-      tech: ["Flutter", "Dart", "PyTorch Mobile", "SQLite", "OpenCV"],
-      features: ["Real-time telemetry analysis", "Zero-latency local inference", "Privacy-first architecture"]
+      title: "aLMOKA",
+      d: "Yemeni Coffee Shop.",
+      img: "/images/almoka.png",
+      storeUrl: "https://play.google.com/store/apps/details?id=com.almoka.hussizle",
+      appStoreUrl: "https://apps.apple.com/au/app/almoka/id6761293679",
+      description: "aLMOKA brings Rockford's first authentic Yemeni gourmet coffee shop to your phone. Browse the menu, order ahead, track delivery, and explore the rich cultural heritage behind every cup.",
+      tech: ["Flutter", "Dart", "Firebase", "REST APIs", "Google Maps"],
+      features: [
+        "Mobile ordering — browse & place orders from the app",
+        "Order ahead for quick, hassle-free pickup",
+        "Real-time delivery estimates",
+        "Store locator at Perryville Commons",
+        "Explore Yemeni coffee heritage & culture"
+      ]
     },
     {
-      title: "Devyn",
-      d: "Crypto Tracker.",
-      img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&q=80&w=600",
-      description: "A sleek, responsive cryptocurrency portfolio tracking application featuring high-frequency price updates, automated transaction syncing, and interactive historical charts.",
-      tech: ["Flutter", "Dart", "Supabase", "CoinGecko API", "Framer Motion"],
-      features: ["Automated portfolio valuation", "Custom price threshold alerts", "Interactive multi-timeframe charts"]
+      title: "Yoola",
+      d: "Super App Platform.",
+      img: "/images/yoola.png",
+      storeUrl: "https://play.google.com/store/apps/details?id=com.yoolaapp.customer",
+      appStoreUrl: "https://apps.apple.com/au/app/yoola/id6780901346",
+      description: "Yoola is an all-in-one super app uniting food delivery, express parcels, local services, and business discovery — with real-time tracking, secure payments, and rewards all in one seamless experience.",
+      tech: ["Flutter", "Dart", "Firebase", "REST APIs", "WebSocket", "Google Maps"],
+      features: [
+        "Food ordering & delivery from local restaurants",
+        "Express parcel & package delivery",
+        "Real-time order & delivery tracking",
+        "Secure digital payments",
+        "Promotions, vouchers & loyalty rewards",
+        "Local business & service discovery"
+      ]
     },
     {
-      title: "ChopTop",
-      d: "AI Text Summarizer.",
-      img: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=600",
-      description: "A modern utility that condenses long articles, documents, and transcripts into key bullet points and action items using state-of-the-art Natural Language Processing (NLP).",
-      tech: ["Flutter", "Dart", "Google Gemini API", "Node.js"],
-      features: ["Multi-document summarization", "Tone and style personalization", "One-click export options"]
-    },
-    {
-      title: "The Carribean Note",
-      d: "Object Detection.",
-      img: "public/images/cara.png",
-      description: "An innovative digital scanning app featuring live object detection, OCR capabilities, and custom metadata tagging to organize field notes and scientific observations dynamically.",
-      tech: ["Flutter", "Dart", "YOLOv8 Mobile", "Hive DB"],
-      features: ["High-speed object recognition", "Offline OCR & text extraction", "Geotagged observation folders"]
+      title: "Pink Pineapple",
+      d: "Bali Nightlife Guide.",
+      img: "/images/pink_pineapple.png",
+      appStoreUrl: "https://apps.apple.com/au/app/pink-pineapple/id6758339469",
+      description: "Pink Pineapple is Bali's insider guide — curated by locals, not algorithms. Discover hand-picked clubs, beach clubs, restaurants and gyms across Canggu, Seminyak and Uluwatu, then plan your perfect night in seconds.",
+      tech: ["Flutter", "Dart", "Firebase", "REST APIs", "Maps"],
+      features: [
+        "Hand-picked venues across Canggu, Seminyak & Uluwatu",
+        "This Week — real DJ names, genres & start times tonight",
+        "Live vibe checks from people there in the last few hours",
+        "Instant itinerary builder — pick a vibe, get a full night plan",
+        "Working booking links — your name & number auto-filled",
+        "Wishlist — save your favourite spots for later"
+      ]
     }
   ];
 
@@ -714,10 +766,22 @@ const Projects = () => {
                   )}
                 </div>
 
-                <div className="flex gap-4 pt-6 border-t border-appShadow/40">
-                  <MinimalButton className="flex-1 py-4 text-xs justify-center shadow-lg bg-appBg border border-appShadow/60">
-                    Explore Repository <ExternalLink size={14} />
-                  </MinimalButton>
+                <div className="flex flex-wrap gap-3 pt-6 border-t border-appShadow/40">
+                  {selectedApp.storeUrl && (
+                    <MinimalButton as="a" href={selectedApp.storeUrl} target="_blank" rel="noopener noreferrer" className="flex-1 py-4 text-xs justify-center shadow-lg bg-appBg border border-appShadow/60">
+                      Play Store <ExternalLink size={14} />
+                    </MinimalButton>
+                  )}
+                  {selectedApp.appStoreUrl && (
+                    <MinimalButton as="a" href={selectedApp.appStoreUrl} target="_blank" rel="noopener noreferrer" className="flex-1 py-4 text-xs justify-center shadow-lg bg-appBg border border-appShadow/60">
+                      App Store <ExternalLink size={14} />
+                    </MinimalButton>
+                  )}
+                  {!selectedApp.storeUrl && !selectedApp.appStoreUrl && (
+                    <MinimalButton className="flex-1 py-4 text-xs justify-center shadow-lg bg-appBg border border-appShadow/60">
+                      Explore Repository <ExternalLink size={14} />
+                    </MinimalButton>
+                  )}
                   <button
                     onClick={() => setSelectedApp(null)}
                     className="px-6 py-4 border border-appText/10 text-appText hover:bg-appText/5 text-xs font-heading font-black rounded-full transition-all tracking-wider uppercase"
